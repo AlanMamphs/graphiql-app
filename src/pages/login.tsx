@@ -1,73 +1,127 @@
-import { FormEventHandler } from 'react';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { useAuthContext } from '@/context/AuthContext';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const Login = () => {
-  // TODO use React Hook form
+import { getProviders, getSession, signIn } from 'next-auth/react';
+import {
+  SignInForm,
+  SignInDataType,
+  SignUpForm,
+  SignUpDataType,
+} from '@/features/auth';
+import { Alert, Button } from 'flowbite-react';
+import { HiInformationCircle } from 'react-icons/hi';
+import { NextPageContext } from 'next';
+
+const Login = (
+  props: Awaited<ReturnType<typeof getServerSideProps>>['props']
+) => {
   const router = useRouter();
+  const error = router.query.error;
   const isSignup = (router.query.signup ?? '0') === '1';
-  const { user, login } = useAuthContext();
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    login({ email: 'abc@gmail.com', password: 'secret_password' });
-    router.push('/main');
-    // Add Sign Up / Sign In Logic here
+
+  const parsedError = useMemo(() => {
+    switch (error) {
+      case 'auth/invalid-credential':
+        return 'Invalid email or password';
+      case 'auth/email-already-in-use':
+        return 'Email already in use';
+    }
+
+    return 'Unknown error';
+  }, [error]);
+  const handleSignIn = async (data: SignInDataType) => {
+    await signIn('credentials', {
+      redirect: true,
+      callbackUrl: '/',
+      ...data,
+    });
+
+    return false;
+  };
+
+  const handleSignUp = async (data: SignUpDataType) => {
+    try {
+      await signIn('credentials', {
+        redirect: true,
+        callbackUrl: '/',
+
+        ...data,
+      });
+    } catch (err) {
+      debugger;
+      console.error(err);
+    }
+
     return false;
   };
   return (
-    <div className="flex justify-center relative h-full w-full overflow-y-auto m-10 pb:12 mx-auto">
-      <form
-        data-testid={isSignup ? 'login-signup-form' : 'login-signin-form'}
-        onSubmit={handleSubmit}
-        className="flex max-w-md flex-col gap-4 "
-      >
-        <h2 className="mb-1 text-base font-semibold text-gray-900 dark:text-white">
-          {isSignup ? 'Sign Up' : 'Sign In'}
-        </h2>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your email" />
-          </div>
-          <TextInput
-            id="email"
-            data-testid="login-email"
-            type="email"
-            placeholder="jane.doe@example.com"
-            required
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your password" />
-          </div>
-          <TextInput
-            data-testid="login-password"
-            id="password1"
-            type="password"
-            required
-          />
-        </div>
+    <div className="flex flex-col justify-center relative h-full w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
+      {error && (
+        <Alert color="failure" icon={HiInformationCircle}>
+          <span className="font-medium">Auth Error!</span> {parsedError}
+        </Alert>
+      )}
 
-        {isSignup && (
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password2" value="Confirm password" />
-            </div>
-            <TextInput
-              id="password2"
-              data-testid="login-confirm-pswd"
-              type="password"
-              required
-            />
-          </div>
-        )}
-        <Button data-testid="login-submit-btn" type="submit">
-          Submit
+      {props?.providers?.['credentials'] && isSignup ? (
+        <SignUpForm onSubmit={handleSignUp} />
+      ) : (
+        <SignInForm onSubmit={handleSignIn} />
+      )}
+      {props?.providers?.google && (
+        <Button
+          onClick={() => signIn('google', { redirect: true, callbackUrl: '/' })}
+          outline
+          className="mt-4"
+        >
+          <Image
+            height="24"
+            width="24"
+            alt="Google Provider"
+            id="provider-logo"
+            src="https://authjs.dev/img/providers/google.svg"
+          />
+          <span>Sign in with Google</span>
         </Button>
-      </form>
+      )}
+      <p className="mt-4 dark:text-white">
+        {isSignup ? (
+          <>
+            Already have an account?{' '}
+            <Link href="/login?signup=0">
+              <span className="text-blue-600 hover:underline">Sign in</span>
+            </Link>
+          </>
+        ) : (
+          <>
+            {' '}
+            Don&apos;have an account?{' '}
+            <Link href="/login?signup=1">
+              <span className="text-blue-600 hover:underline">Sign up</span>
+            </Link>
+          </>
+        )}
+      </p>
     </div>
   );
 };
 
 export default Login;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const session = await getSession(context);
+  if (!!session) {
+    return {
+      redirect: {
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {
+      session: session,
+      providers: await getProviders(),
+    },
+  };
+};

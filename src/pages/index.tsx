@@ -2,7 +2,11 @@ import { Banner, Button } from 'flowbite-react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+
 export const HomePageContent: NextPage = function () {
+  const { data: session, status } = useSession();
+
   return (
     <div
       data-testid="welcome-banner"
@@ -23,6 +27,8 @@ export const HomePageContent: NextPage = function () {
             <div>
               <h2 className="mb-1 text-base font-semibold text-gray-900 dark:text-white">
                 Welcome to the GraphiQL
+                {status === 'authenticated' &&
+                  `, ${session.user?.name || session.user?.email}`}
               </h2>
 
               <p className="flex items-center text-sm font-normal w-full max-w-lg  whitespace-break-spaces text-gray-500 dark:text-gray-400">
@@ -37,6 +43,7 @@ export const HomePageContent: NextPage = function () {
                   className="contents font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   {' '}
                   here
@@ -45,26 +52,28 @@ export const HomePageContent: NextPage = function () {
               </p>
             </div>
           </div>
-          <div className="flex flex-shrink-0 items-center">
-            <Button.Group>
-              {/* @ts-expect-error Link doesn't have as property */}
-              <Button
-                data-testid="welcome-signin-btn"
-                as={Link}
-                href="/login?signup=0"
-              >
-                Sign In
-              </Button>
-              {/* @ts-expect-error Link doesn't have as property */}
-              <Button
-                data-testid="welcome-signup-btn"
-                as={Link}
-                href="/login?signup=1"
-              >
-                Sign up
-              </Button>
-            </Button.Group>
-          </div>
+          {status === 'unauthenticated' && (
+            <div className="flex flex-shrink-0 items-center">
+              <Button.Group>
+                {/* @ts-expect-error Link doesn't have as property */}
+                <Button
+                  data-testid="welcome-signin-btn"
+                  as={Link}
+                  href="/login?signup=0"
+                >
+                  Sign In
+                </Button>
+                {/* @ts-expect-error Link doesn't have as property */}
+                <Button
+                  data-testid="welcome-signup-btn"
+                  as={Link}
+                  href="/login?signup=1"
+                >
+                  Sign up
+                </Button>
+              </Button.Group>
+            </div>
+          )}
         </div>
       </Banner>
     </div>

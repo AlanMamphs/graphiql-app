@@ -1,18 +1,18 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { AuthContextProvider } from '@/context/AuthContext';
 import { RootLayout } from '@/layouts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { SessionProvider } from 'next-auth/react';
 
-function App({ Component, ...props }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <AuthContextProvider>
+    <SessionProvider session={session}>
       <RootLayout>
         <ErrorBoundary>
-          <Component {...props} />
+          <Component {...pageProps} />
         </ErrorBoundary>
       </RootLayout>
-    </AuthContextProvider>
+    </SessionProvider>
   );
 }
 export default App;

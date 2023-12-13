@@ -1,18 +1,19 @@
 import type { FC } from 'react';
 import { DarkThemeToggle, Navbar, Button } from 'flowbite-react';
 import { useRouter } from 'next/router';
-
 import Image from 'next/image';
-import { useAuthContext } from '@/context/AuthContext';
+import Link from 'next/link';
+
+import { useSession, signOut } from 'next-auth/react';
 
 export const NavbarComponent: FC<Record<string, never>> = function () {
   const router = useRouter();
-  const { user, logout } = useAuthContext();
+  const { status } = useSession();
 
   return (
     <header className="sticky top-0 z-10">
       <Navbar fluid rounded>
-        <Navbar.Brand href="/" data-testid="nav-brand">
+        <Navbar.Brand as={Link} href="/" data-testid="nav-brand">
           <Image alt="Logo" height="24" src="/favicon.png" width="24" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             GraphiQL Editor
@@ -20,28 +21,28 @@ export const NavbarComponent: FC<Record<string, never>> = function () {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          {user.isAuthenticated ? (
+          {status === 'authenticated' ? (
             <>
               <Navbar.Link
                 data-testid="nav-main-btn"
-                href="/main"
+                href="/playground"
                 active={router.pathname === '/'}
               >
                 <Button>Main</Button>
               </Navbar.Link>
-              <Button data-testid="nav-signout-btn" onClick={logout}>
+              <Button
+                data-testid="nav-signout-btn"
+                onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
+              >
                 Sign Out
               </Button>
             </>
           ) : (
             <>
-              <Navbar.Link href="/login" active={router.pathname === '/login'}>
+              <Navbar.Link as={Link} href="/login?signup=0">
                 <Button data-testid="nav-signin-btn">Sign In</Button>
               </Navbar.Link>
-              <Navbar.Link
-                href="/login?signup=1"
-                active={router.pathname === '/login'}
-              >
+              <Navbar.Link as={Link} href="/login?signup=1">
                 <Button data-testid="nav-signup-btn">Sign Up</Button>
               </Navbar.Link>
             </>

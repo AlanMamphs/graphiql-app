@@ -36,7 +36,7 @@ export const FooterComponent = () => (
           <FooterGithubLink name="TODO" link="#" />
         </Footer.LinkGroup>
       </div>
-      <Footer.Divider />
+      <Footer.Divider className="my-2 lg:my-2" />
       <Footer.Copyright
         href="https://github.com/AlanMamphs/graphiql-app"
         by="IT Crowd Teams"
