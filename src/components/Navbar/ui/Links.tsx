@@ -9,7 +9,7 @@ const Links = () => {
     return (
       <>
         <NavigationLink
-          data-testid="nav-main-btn"
+          dataTestId="nav-main-btn"
           href="/main"
           currentPath={'/'}
         >
@@ -18,7 +18,7 @@ const Links = () => {
 
         <NavigationButton
           text="Sign out"
-          data-testid="nav-signout-btn"
+          dataTestId="nav-signout-btn"
           onClick={logout}
         />
       </>
@@ -28,10 +28,10 @@ const Links = () => {
   return (
     <>
       <NavigationLink href="/login" currentPath={'/login'}>
-        <NavigationButton text="Sign In" data-testid="nav-signin-btn" />
+        <NavigationButton text="Sign In" dataTestId="nav-signin-btn" />
       </NavigationLink>
       <NavigationLink href="/login?signup=1" currentPath={'/login'}>
-        <NavigationButton text="Sign Up" data-testid="nav-signup-btn" />
+        <NavigationButton text="Sign Up" dataTestId="nav-signup-btn" />
       </NavigationLink>
     </>
   );
