@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { DURATION_TIME } from '../lib';
 import { typographyVariants } from '../lib/variants';
 
 interface Props {

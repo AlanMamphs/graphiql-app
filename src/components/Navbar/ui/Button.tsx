@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { DURATION_TIME, variants } from '../lib';
 import { Typography } from './Typography';
+import { DURATION_TIME, underlineVariants } from '../lib/variants';
 
 interface Props {
   onClick?: () => void;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
-  const [stage, setStage] = useState<keyof typeof variants>('start');
+  const [stage, setStage] = useState<keyof typeof underlineVariants>('start');
 
   const onHoverStart = () => {
     setStage('start');
@@ -37,7 +37,7 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
         stage={stage === 'preserved' ? 'open' : 'closed'}
       />
       <motion.span
-        variants={variants}
+        variants={underlineVariants}
         animate={stage}
         className="h-[1px] absolute bottom-0 bg-white w-full"
       />
