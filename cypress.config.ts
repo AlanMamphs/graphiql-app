@@ -26,8 +26,8 @@ export default defineConfig({
       return config;
     },
     env: {
-      TEST_USER_EMAIL: process.env.TEST_USER_EMAIL,
-      TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD,
+      TEST_USER_EMAIL: 'jane.doe@example.com',
+      TEST_USER_PASSWORD: 'To$9To$9',
     },
   },
   defaultCommandTimeout: 30000,

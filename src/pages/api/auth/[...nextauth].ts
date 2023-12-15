@@ -16,12 +16,13 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
   throw new Error('GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET not set');
 }
-
 const adapter = FirestoreAdapter({
   credential: cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY
+      ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY)
+      : undefined,
   }),
 });
 export default NextAuth({
