@@ -1,7 +1,7 @@
 describe('Welcome Page', () => {
   it('Welcome page is rendered properly', () => {
     // Start from the index page
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
     // Assert that welcome page is displayed correctly
     cy.giql('main-page').should('not.exist');
@@ -25,16 +25,22 @@ describe('Welcome Page', () => {
 
     cy.giql('login-email').type('jane.doe@example.com');
 
-    cy.giql('login-password').type('topsecret');
+    cy.giql('login-password').type('To$9To$9');
 
     cy.giql('login-submit-btn').click();
 
+    cy.giql('welcome-banner').should('be.visible');
+    cy.giql('welcome-signin-btn').should('not.exist');
+
     // Assert that Main page is displayed now
-    cy.giql('main-page').should('be.visible');
+    cy.giql('main-page').should('not.exist');
     cy.giql('nav-signout-btn').should('be.visible');
     cy.giql('nav-signin-btn').should('not.exist');
     cy.giql('nav-signup-btn').should('not.exist');
     cy.giql('nav-main-btn').should('be.visible');
+    cy.giql('nav-main-btn').click();
+
+    cy.giql('main-page').should('be.visible');
 
     // Assert that Welcome Page is after logout
     cy.giql('nav-signout-btn').click();

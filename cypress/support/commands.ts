@@ -14,6 +14,8 @@ type GIQLElements =
   | 'footer-github-names'
   | 'login-signup-form'
   | 'login-signin-form'
+  | 'login-firstname'
+  | 'login-lastname'
   | 'login-email'
   | 'login-password'
   | 'login-confirm-pswd'
