@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    swcPlugins: [['swc-plugin-coverage-instrument', {}]],
+    forceSwcTransforms: process.env.NODE_ENV !== 'test',
   },
   compiler: {
     reactRemoveProperties: process.env.NODE_ENV === 'production',

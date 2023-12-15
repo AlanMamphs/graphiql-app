@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +20,7 @@ const Login = (
   const error = router.query.error;
   const isSignup = (router.query.signup ?? '0') === '1';
 
-  const parsedError = useMemo(() => {
+  const parsedError = () => {
     switch (error) {
       case 'auth/invalid-credential':
         return 'Invalid email or password';
@@ -30,37 +29,32 @@ const Login = (
     }
 
     return 'Unknown error';
-  }, [error]);
+  };
   const handleSignIn = async (data: SignInDataType) => {
     await signIn('credentials', {
       redirect: true,
       callbackUrl: '/',
       ...data,
     });
-
-    return false;
   };
 
   const handleSignUp = async (data: SignUpDataType) => {
-    try {
-      await signIn('credentials', {
-        redirect: true,
-        callbackUrl: '/',
+    await signIn('credentials', {
+      redirect: true,
+      callbackUrl: '/',
 
-        ...data,
-      });
-    } catch (err) {
-      debugger;
-      console.error(err);
-    }
-
-    return false;
+      ...data,
+    });
   };
   return (
     <div className="flex flex-col justify-center relative h-full w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
       {error && (
-        <Alert color="failure" icon={HiInformationCircle}>
-          <span className="font-medium">Auth Error!</span> {parsedError}
+        <Alert
+          data-testid="login-error"
+          color="failure"
+          icon={HiInformationCircle}
+        >
+          <span className="font-medium">Auth Error!</span> {parsedError()}
         </Alert>
       )}
 

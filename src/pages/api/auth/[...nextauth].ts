@@ -16,6 +16,7 @@ if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
 }
 const adapter = FirestoreAdapter();
 export default NextAuth({
+  secret: process.env.AUTH_SECRET,
   adapter,
   providers: [
     CredentialsProvider({

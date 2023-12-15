@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
 
@@ -22,12 +20,9 @@ export const SignInForm = (props: {
     mode: 'onBlur',
   });
 
-  const fieldColor = useCallback(
-    (field: keyof SignInDataType) => {
-      if (errors[field]) return 'failure';
-    },
-    [errors]
-  );
+  const fieldColor = (field: keyof SignInDataType) => {
+    if (errors[field]) return 'failure';
+  };
 
   return (
     <div className="text-left">

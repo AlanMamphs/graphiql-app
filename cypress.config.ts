@@ -1,6 +1,20 @@
 import { defineConfig } from 'cypress';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: `.env`,
+});
+dotenv.config({
+  path: `.env.local`,
+  override: true,
+});
 
 export default defineConfig({
+  env: {
+    codeCoverage: {
+      exclude: ['cypress/**/*.*', 'node_modules/**'],
+    },
+  },
   e2e: {
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
@@ -12,12 +26,11 @@ export default defineConfig({
       return config;
     },
     env: {
-      codeCoverage: {
-        exclude: ['cypress/**/*.*', 'node_modules/**'],
-      },
+      TEST_USER_EMAIL: process.env.TEST_USER_EMAIL,
+      TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD,
     },
   },
-
+  defaultCommandTimeout: 30000,
   component: {
     devServer: {
       framework: 'next',

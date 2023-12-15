@@ -25,7 +25,10 @@ export const PasswordStrengthIndicator = (props: { password: string }) => {
   if (passwordStrength < 3) {
     return (
       <>
-        <div className="mb-1 text-base font-medium text-red-700 dark:text-red-500">
+        <div
+          data-testid="password-strength-text"
+          className="mb-1 text-base font-medium text-red-700 dark:text-red-500"
+        >
           Weak
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">

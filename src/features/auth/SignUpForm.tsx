@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 
@@ -24,12 +23,9 @@ export const SignUpForm = (props: {
     mode: 'onBlur',
   });
 
-  const fieldColor = useCallback(
-    (field: keyof SignUpDataType) => {
-      if (errors[field]) return 'failure';
-    },
-    [errors]
-  );
+  const fieldColor = (field: keyof SignUpDataType) => {
+    if (errors[field]) return 'failure';
+  };
 
   return (
     <div className="text-left">
@@ -96,7 +92,7 @@ export const SignUpForm = (props: {
             helperText={errors.password?.message}
           />
           {watch('password') && (
-            <PasswordStrengthIndicator password={watch('password', '') ?? ''} />
+            <PasswordStrengthIndicator password={watch('password', '')} />
           )}
         </div>
 
