@@ -10,42 +10,7 @@ on:
     branches: ['*']
 
 jobs:
-  #   build:
-  #     runs-on: ubuntu-latest
-  #     environment: Preview
-  #     env:
-  #       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY }}
-  #       NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ vars.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
-  #       NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
-  #       NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ vars.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
-  #       NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
-  #       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_APP_ID }}
-  #       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-  #       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-  #       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-  #       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-  #       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-  #       FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-  #       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-  #       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-
-  #     strategy:
-  #       matrix:
-  #         node-version: [18.x]
-  #         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-  #     steps:
-  #       - uses: actions/checkout@v3
-
-  #       - name: Use Node.js ${{ matrix.node-version }}
-  #         uses: actions/setup-node@v3
-  #         with:
-  #           node-version: ${{ matrix.node-version }}
-  #           cache: 'npm'
-  #       - run: npm ci
-  #       - run: npm run predeploy
-
-  cypress:
+  build:
     runs-on: ubuntu-latest
     environment: Preview
     env:
@@ -63,12 +28,29 @@ jobs:
       FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: cypress-io/github-action@v6
+        uses: actions/setup-node@v3
         with:
-          build: npm run build
-          start: npm run dev
-          browser: chrome
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run predeploy
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage
+      - name: Archive cypress videos
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress
+          path: cypress/videos
