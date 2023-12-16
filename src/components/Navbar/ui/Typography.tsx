@@ -15,7 +15,6 @@ export const Typography = ({ text, stage, className }: Props) => (
         custom={index + 1}
         variants={typographyVariants}
         animate={stage}
-        initial={{ color: 'white' }}
       >
         {item}
       </motion.span>
