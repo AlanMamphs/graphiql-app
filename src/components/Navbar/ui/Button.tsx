@@ -13,8 +13,6 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
   const [stage, setStage] = useState<keyof typeof underlineVariants>('start');
 
   const onHoverStart = () => {
-    setStage('start');
-
     setStage('preserved');
   };
 
@@ -28,7 +26,7 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
     <motion.button
       data-testid={dataTestId}
       onClick={onClick}
-      className="relative flex py-2 px-3 items-center justify-center overflow-hidden"
+      className="relative flex py-2 items-center justify-center overflow-hidden"
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
     >
@@ -37,6 +35,7 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
         stage={stage === 'preserved' ? 'open' : 'closed'}
       />
       <motion.span
+        initial={{ left: '-100%' }}
         variants={underlineVariants}
         animate={stage}
         className="h-[1px] absolute bottom-0 bg-white w-full"
