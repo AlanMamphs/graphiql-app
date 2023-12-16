@@ -18,6 +18,18 @@ describe('Welcome Page', () => {
     cy.giql('footer-rs-school').should('be.visible');
     cy.giql('footer-github-names').should('be.visible');
 
+    // Check secondary header existance after scroll
+
+    cy.scrollTo(0, 120);
+
+    cy.giql('nav-secondary-menu').should('be.visible');
+    cy.giql('nav-secondary-menu-btn').should('be.visible');
+
+    cy.giql('nav-secondary-menu-btn').click();
+
+    cy.giql('nav-secondary-menu-container').should('be.visible');
+    cy.giql('nav-secondary-menu-links').should('be.visible');
+
     // Navigate to Sign In Page and authenticate
     cy.giql('nav-signin-btn').click();
 
