@@ -18,25 +18,12 @@ describe('Welcome Page', () => {
     cy.giql('footer-rs-school').should('be.visible');
     cy.giql('footer-github-names').should('be.visible');
 
-    // Check secondary header existance after scroll
-
-    cy.scrollTo(0, 120);
-
-    cy.giql('nav-secondary-menu').should('be.visible');
-    cy.giql('nav-secondary-menu-btn').should('be.visible');
-
-    cy.giql('nav-secondary-menu-btn').click();
-
-    cy.giql('nav-secondary-menu-container').should('be.visible');
-    cy.giql('nav-secondary-menu-links').should('be.visible');
-
     // Navigate to Sign In Page and authenticate
     cy.giql('nav-signin-btn').click();
 
     cy.giql('login-signin-form').should('be.visible');
 
     cy.giql('login-email').type('jane.doe@example.com');
-
     cy.giql('login-password').type('topsecret');
 
     cy.giql('login-submit-btn').click();
@@ -59,5 +46,21 @@ describe('Welcome Page', () => {
     // and assert the same login page is shown
     cy.giql('welcome-signin-btn').click();
     cy.giql('login-signin-form').should('be.visible');
+  });
+
+  it('Navigation is working', () => {
+    // Start from the index page
+    cy.visit('http://localhost:3000/');
+
+    // Check secondary header existance after scroll
+    cy.scrollTo(0, 400);
+
+    cy.giql('nav-secondary-menu').should('be.visible');
+    cy.giql('nav-secondary-menu-btn').should('be.visible');
+
+    cy.giql('nav-secondary-menu-btn').click();
+
+    cy.giql('nav-secondary-menu-container').should('be.visible');
+    cy.giql('nav-secondary-menu-links').should('be.visible');
   });
 });
