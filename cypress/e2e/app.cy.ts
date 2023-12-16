@@ -52,7 +52,7 @@ describe('Welcome Page', () => {
     // Start from the index page
     cy.visit('http://localhost:3000/');
 
-    // Check secondary header existance after scroll
+    // Scroll for sticky header to appear
     cy.scrollTo(0, 400);
 
     cy.giql('nav-secondary-menu').should('be.visible');
