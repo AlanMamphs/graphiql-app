@@ -41,7 +41,7 @@ export const typographyVariants = {
     },
   }),
   closed: (custom: number) => ({
-    color: 'white',
+    color: '#FFFFF',
     transition: {
       duration: DURATION_TIME,
       delay: 0.02 * custom,
