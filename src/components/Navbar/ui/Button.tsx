@@ -26,14 +26,11 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
     <motion.button
       data-testid={dataTestId}
       onClick={onClick}
-      className="relative flex py-2 items-center justify-center overflow-hidden"
+      className="relative flex py-2 items-center justify-center overflow-hidden text-white"
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
     >
-      <Typography
-        text={text}
-        stage={stage === 'preserved' ? 'open' : 'closed'}
-      />
+      <Typography>{text}</Typography>
       <motion.span
         initial={{ left: '-100%' }}
         variants={underlineVariants}

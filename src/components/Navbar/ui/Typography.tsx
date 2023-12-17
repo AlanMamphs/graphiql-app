@@ -1,23 +1,10 @@
-import { motion } from 'framer-motion';
-import { typographyVariants } from '../lib/variants';
+import { ReactNode } from 'react';
 
 interface Props {
-  text: string;
+  children: ReactNode;
   className?: string;
-  stage: 'open' | 'closed';
 }
 
-export const Typography = ({ text, stage, className }: Props) => (
-  <motion.p className={className}>
-    {text.split('').map((item, index) => (
-      <motion.span
-        key={item + index}
-        custom={index + 1}
-        variants={typographyVariants}
-        animate={stage}
-      >
-        {item}
-      </motion.span>
-    ))}
-  </motion.p>
+export const Typography = ({ children, className }: Props) => (
+  <p className={className}>{children}</p>
 );

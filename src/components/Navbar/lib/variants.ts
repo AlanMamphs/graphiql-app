@@ -32,23 +32,6 @@ export const brandVariants = {
   closed: {},
 };
 
-export const typographyVariants = {
-  open: (custom: number) => ({
-    color: '#94A3B8',
-    transition: {
-      duration: DURATION_TIME,
-      delay: 0.02 * custom,
-    },
-  }),
-  closed: (custom: number) => ({
-    color: 'white',
-    transition: {
-      duration: DURATION_TIME,
-      delay: 0.02 * custom,
-    },
-  }),
-};
-
 export const navBarVariants = {
   open: {
     opacity: 1,

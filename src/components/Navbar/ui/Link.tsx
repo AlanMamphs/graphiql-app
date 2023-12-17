@@ -21,14 +21,9 @@ const NavigationLink = ({
   const isActive = pathname === currentPath;
 
   return (
-    <Navbar.Link
-      data-testid={dataTestId}
-      as={Link}
-      href={href}
-      active={isActive}
-    >
+    <Link data-testid={dataTestId} href={href}>
       {children}
-    </Navbar.Link>
+    </Link>
   );
 };
 

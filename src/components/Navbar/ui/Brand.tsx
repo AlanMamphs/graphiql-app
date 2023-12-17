@@ -25,11 +25,9 @@ const Brand = () => {
         <Image alt="Logo" src="/favicon.png" fill />
       </motion.div>
 
-      <Typography
-        stage={stage}
-        className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-        text="GraphiQL Editor"
-      />
+      <Typography className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        GraphiQL Editor
+      </Typography>
     </Navbar.Brand>
   );
 };
