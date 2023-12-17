@@ -2,7 +2,7 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from './ui/button';
 
-export function ModeToggle() {
+export const ModeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const isLight = resolvedTheme === 'light';
 
@@ -13,4 +13,4 @@ export function ModeToggle() {
       {isLight ? <Moon /> : <Sun />}
     </Button>
   );
-}
+};
