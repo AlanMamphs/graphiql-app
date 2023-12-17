@@ -1,12 +1,10 @@
 import type { FC, PropsWithChildren } from 'react';
-import { Flowbite } from 'flowbite-react';
 import { NavbarComponent } from '@/components/Navbar';
 import { FooterComponent } from '@/components/Footer';
-import { flowbiteTheme } from './theme';
 
 export const RootLayout: FC<PropsWithChildren> = function ({ children }) {
   return (
-    <Flowbite theme={{ theme: flowbiteTheme }}>
+    <div className="flex flex-col">
       <NavbarComponent />
       <main
         id="main-content"
@@ -15,6 +13,6 @@ export const RootLayout: FC<PropsWithChildren> = function ({ children }) {
         {children}
       </main>
       <FooterComponent />
-    </Flowbite>
+    </div>
   );
 };

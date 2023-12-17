@@ -1,4 +1,5 @@
-import { Banner, Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,26 +7,26 @@ export const HomePageContent: NextPage = function () {
   return (
     <div
       data-testid="welcome-banner"
-      className="flex justify-center relative h-full w-full overflow-y-auto m-10 pb:12 mx-auto"
+      className="flex justify-center w-full h-full overflow-y-auto mx-auto"
     >
-      <Banner>
-        <div className="flex w-[calc(100%-2rem)] flex-col justify-between rounded-lg border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-600 dark:bg-gray-700 md:flex-row lg:max-w-7xl">
-          <div className="mb-3 mr-4 flex flex-col items-start md:mb-0 md:flex-row md:items-center">
-            <a
+      <Card className="m-4">
+        <div className="flex flex-col justify-between p-4 shadow-sm lg:max-w-7xl">
+          <div className="flex">
+            <Link
               href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md"
-              className="mb-2 flex items-center border-gray-200 dark:border-gray-600 md:mb-0 md:mr-4 md:border-r md:pr-4"
+              className="flex items-center gap-2"
             >
               <Image alt="Logo" height="48" src="/favicon.png" width="48" />
-              <span className="self-center whitespace-nowrap text-lg font-semibold dark:text-white md:pr-6">
+              <span className="self-center whitespace-nowrap text-lg font-semibold md:pr-6">
                 GraphiQL
               </span>
-            </a>
-            <div>
-              <h2 className="mb-1 text-base font-semibold text-gray-900 dark:text-white">
+            </Link>
+            <div className="flex flex-col justify-center h-full">
+              <h2 className="text-base font-semibold text-gray-900 dark:text-white">
                 Welcome to the GraphiQL
               </h2>
 
-              <p className="flex items-center text-sm font-normal w-full max-w-lg  whitespace-break-spaces text-gray-500 dark:text-gray-400">
+              <p className="flex items-center text-sm font-normal w-full max-w-lg whitespace-break-spaces">
                 GraphiQL is a playground/IDE for graphQL requests. This project
                 is part of Rolling Scopes School React Course. The Rolling
                 Scopes is an independent international community of developers
@@ -33,40 +34,27 @@ export const HomePageContent: NextPage = function () {
                 2013. Currently, many developers around the world know that we
                 participate in our events and activities. You can find task
                 description and requirements
-                <a
+                <Link
                   className="contents font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md"
                   target="_blank"
                 >
                   {' '}
                   here
-                </a>
-                <br />
+                </Link>
               </p>
             </div>
-          </div>
-          <div className="flex flex-shrink-0 items-center">
-            <Button.Group>
-              {/* @ts-expect-error Link doesn't have as property */}
-              <Button
-                data-testid="welcome-signin-btn"
-                as={Link}
-                href="/login?signup=0"
-              >
-                Sign In
-              </Button>
-              {/* @ts-expect-error Link doesn't have as property */}
-              <Button
-                data-testid="welcome-signup-btn"
-                as={Link}
-                href="/login?signup=1"
-              >
-                Sign up
-              </Button>
-            </Button.Group>
+            <div className="flex flex-shrink-0 items-center gap-2">
+              <Link href="/login?signup=0">
+                <Button data-testid="welcome-signin-btn">Sign In</Button>
+              </Link>
+              <Link href="/login?signup=1">
+                <Button data-testid="welcome-signup-btn">Sign up</Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </Banner>
+      </Card>
     </div>
   );
 };

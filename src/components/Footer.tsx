@@ -1,47 +1,37 @@
-import { Footer } from 'flowbite-react';
-import { FaGithub } from 'react-icons/fa';
+import Link from 'next/link';
+import { Github } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from './ui/button';
 
 const FooterGithubLink = (props: { name: string; link: string }) => (
-  <Footer.Link
-    className="contents font-medium text-blue-600 dark:text-blue-500 hover:underline"
-    href={props.link}
-  >
-    <FaGithub className="inline m-2" />
-    {props.name}
-  </Footer.Link>
+  <Link href={props.link} target="_blank">
+    <Button className="flex gap-1" variant="link">
+      <Github />
+      {props.name}
+    </Button>
+  </Link>
 );
 
 export const FooterComponent = () => (
-  <Footer container className="flex-row bg-gray-100 dark:bg-gray-700">
-    <div className="w-full text-center">
-      <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
-        <Footer.Brand
-          data-testid="footer-rs-school"
-          href="https://rs.school"
-          src="logo-rsschool3.png"
-          alt="RSSchool Logo"
-          className="b bg-grey"
-        />
-        <Footer.LinkGroup
-          data-testid="footer-github-names"
-          col
-          className="flex-row items-baseline"
-        >
-          <FooterGithubLink
-            name="Alisher Mamunov"
-            link="https://github.com/AlanMamphs"
-          />
-          <FooterGithubLink name="TODO" link="#" />
-
-          <FooterGithubLink name="TODO" link="#" />
-        </Footer.LinkGroup>
-      </div>
-      <Footer.Divider />
-      <Footer.Copyright
-        href="https://github.com/AlanMamphs/graphiql-app"
-        by="IT Crowd Teams"
-        year={new Date().getFullYear()}
+  <div className="flex p-4 text-center justify-between sm:justify-between">
+    <Link href="https://rs.school">
+      <Image
+        data-testid="footer-rs-school"
+        src="/logo-rsschool3.png"
+        width={64}
+        height={32}
+        alt="RSSchool Logo"
+        className=""
       />
+    </Link>
+    <div data-testid="footer-github-names" className="flex items-center gap-2">
+      <FooterGithubLink
+        name="Alisher Mamunov"
+        link="https://github.com/AlanMamphs"
+      />
+      <FooterGithubLink name="TODO" link="#" />
+
+      <FooterGithubLink name="TODO" link="#" />
     </div>
-  </Footer>
+  </div>
 );
