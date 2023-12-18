@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { NavigationButton } from '../../Button';
+import { Links } from '../../Links';
 
 const variants = {
   closed: {
@@ -21,8 +22,6 @@ const variants = {
 };
 
 export const MenuContent = ({ stage }: { stage: 'open' | 'closed' }) => {
-  const links = ['Editor', 'Developers', 'About', 'Contacts'];
-
   return (
     <motion.div
       className="absolute flex flex-col rounded-xl -right-1 -top-1 -z-10 overflow-hidden bg-slate-700"
@@ -37,22 +36,7 @@ export const MenuContent = ({ stage }: { stage: 'open' | 'closed' }) => {
           animate={{ opacity: 1, transition: { delay: 0.2 } }}
           className="flex flex-col w-full h-full pl-4 justify-center gap-3"
         >
-          {links.map((text, index) => (
-            <motion.li
-              key={text}
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-                transition: {
-                  delay: 0.1 * index,
-                },
-              }}
-            >
-              <NavigationButton text={text} />
-            </motion.li>
-          ))}
+          <Links direction="col" />
         </motion.ul>
       )}
     </motion.div>

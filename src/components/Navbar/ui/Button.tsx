@@ -26,7 +26,7 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
     <motion.button
       data-testid={dataTestId}
       onClick={onClick}
-      className="relative flex py-2 items-center justify-center overflow-hidden text-white"
+      className="relative flex w-fit py-2 items-center justify-center overflow-hidden text-white"
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
     >
