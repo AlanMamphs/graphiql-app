@@ -1,5 +1,9 @@
 {
   "all": true,
   "include": ["src/**"],
-  "exclude": ["src/layouts/index.ts", "src/pages/_document.tsx"]
+  "exclude": [
+    "src/layouts/index.ts",
+    "src/pages/_document.tsx",
+    "src/components/ui"
+  ]
 }

@@ -13,7 +13,8 @@ export default defineConfig({
     },
     env: {
       codeCoverage: {
-        exclude: ['cypress/**/*.*', 'node_modules/**'],
+        // I exclude the './src/components/ui' since its UI kit.
+        exclude: ['cypress/**/*.*', 'node_modules/**', 'src/components/ui'],
       },
     },
   },
