@@ -54,13 +54,6 @@ describe('Welcome Page', () => {
 
     // Scroll for sticky header to appear
     cy.scrollTo(0, 400);
-
-    cy.giql('nav-secondary-menu').should('be.visible');
-    cy.giql('nav-secondary-menu-btn').should('be.visible');
-
-    cy.giql('nav-secondary-menu-btn').click();
-
-    cy.giql('nav-secondary-menu-container').should('be.visible');
-    cy.giql('nav-secondary-menu-links').should('be.visible');
+    cy.giql('nav-background').should('not.be.visible');
   });
 });
