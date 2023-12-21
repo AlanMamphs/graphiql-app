@@ -18,7 +18,6 @@ const NavigationLink = ({
   children,
 }: LinkProps) => {
   const pathname = usePathname();
-  const isActive = pathname === currentPath;
 
   return (
     <Link data-testid={dataTestId} href={href}>

@@ -1,52 +1,12 @@
+'use client';
+
 import { useStages } from '@/hooks/useStages';
-import { DarkThemeToggle, Navbar } from 'flowbite-react';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import Image from 'next/image';
-import {
-  verticalPrimaryVariants,
-  verticalSecondaryVariants,
-} from './lib/verticalSwap';
+import { DURATION_TIME } from './lib/variants';
 import { Brand } from './ui/Brand';
 import { Links } from './ui/Links';
-import { Menu } from './ui/Menu';
 
 const HEADER_HEIGHT = 60;
-
-interface HeaderProps {
-  stage: 'open' | 'closed';
-}
-
-const DefaultHeader = ({ stage }: HeaderProps) => (
-  <motion.div variants={verticalPrimaryVariants} animate={stage}>
-    <Navbar fluid rounded>
-      <Brand />
-      <Navbar.Collapse>
-        <Links />
-
-        <li>
-          <DarkThemeToggle data-testid="nav-light-dark-theme" />
-        </li>
-      </Navbar.Collapse>
-    </Navbar>
-  </motion.div>
-);
-
-const FloatHeader = ({ stage }: HeaderProps) => (
-  <motion.div
-    data-testid="nav-secondary-menu"
-    className="px-2 py-2.5 sm:px-4 rounded"
-    initial={{ opacity: 0 }}
-    variants={verticalSecondaryVariants}
-    animate={stage}
-  >
-    <div className="flex justify-between">
-      <motion.div className="w-10 aspect-square relative">
-        <Image alt="Logo" src="/favicon.png" fill />
-      </motion.div>
-      <Menu />
-    </div>
-  </motion.div>
-);
 
 export const NavbarComponent = () => {
   const { stage, onOpen, onClose } = useStages('open');
@@ -57,12 +17,23 @@ export const NavbarComponent = () => {
   });
 
   return (
-    <motion.header
-      className="sticky top-0 z-10 flex flex-col h-16"
-      animate={stage}
-    >
-      <DefaultHeader stage={stage} />
-      <FloatHeader stage={stage} />
+    <motion.header className="sticky flex justify-between top-0 px-1 py-2 z-10 text-white">
+      <Brand stage={stage} />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-t from-slate-700 to-slate-600 -z-10"
+        animate={stage}
+        variants={{
+          closed: {
+            height: 0,
+          },
+          open: {
+            height: '100%',
+          },
+        }}
+      />
+      <motion.div>
+        <Links className="gap-3" />
+      </motion.div>
     </motion.header>
   );
 };

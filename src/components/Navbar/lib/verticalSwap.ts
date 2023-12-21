@@ -1,14 +1,14 @@
 export const verticalPrimaryVariants = {
   open: {
-    y: 0,
-    opacity: 1,
+    y: '-100%',
+    opacity: 0,
     transition: {
       duration: 0.3,
     },
   },
   closed: {
-    y: '-100%',
-    opacity: 0,
+    y: 0,
+    opacity: 1,
     transition: {
       duration: 0.3,
     },
@@ -17,15 +17,15 @@ export const verticalPrimaryVariants = {
 
 export const verticalSecondaryVariants = {
   closed: {
-    y: '-100%',
-    opacity: 1,
+    y: 0,
+    opacity: 0,
     transition: {
       duration: 0.3,
     },
   },
   open: {
-    y: 0,
-    opacity: 0,
+    y: '-100%',
+    opacity: 1,
     transition: {
       duration: 0.3,
     },

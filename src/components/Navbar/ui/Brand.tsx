@@ -1,34 +1,45 @@
-import { useStages } from '@/hooks/useStages';
-import { Navbar } from 'flowbite-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { brandVariants } from '../lib/variants';
-import { Typography } from './Typography';
+import { DURATION_TIME } from '../lib/variants';
 
-const Brand = () => {
-  const { stage, onOpen, onClose } = useStages();
+const Brand = ({ stage }: { stage: 'open' | 'closed' }) => {
+  const variants = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: DURATION_TIME * 0.001 },
+    },
+    closed: {
+      y: '-120%',
+      opacity: 0,
+      transition: { duration: DURATION_TIME * 0.001 },
+    },
+  };
+
   return (
-    <Navbar.Brand
-      as={Link}
+    <Link
       href="/"
       data-testid="nav-brand"
-      className="group gap-2"
-      onMouseEnter={onOpen}
-      onMouseLeave={onClose}
+      className="w-fit flex gap-2 items-center text-xl overflow-hidden"
     >
       <motion.div
         className="w-10 aspect-square relative"
-        variants={brandVariants}
-        animate={stage}
+        animate={{
+          rotate: [0, 360],
+          transition: {
+            duration: DURATION_TIME * 0.1,
+            repeat: Infinity,
+          },
+        }}
       >
         <Image alt="Logo" src="/favicon.png" fill />
       </motion.div>
 
-      <Typography className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+      <motion.p className="whitespace-nowrap font-semibold dark:text-white">
         GraphiQL Editor
-      </Typography>
-    </Navbar.Brand>
+      </motion.p>
+    </Link>
   );
 };
 

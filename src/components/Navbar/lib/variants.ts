@@ -1,4 +1,4 @@
-export const DURATION_TIME = 200;
+export const DURATION_TIME = 300;
 
 const transition = { duration: DURATION_TIME * 0.001 };
 
@@ -19,17 +19,6 @@ export const underlineVariants = {
     left: '-100%',
     transition: { duration: 0 },
   },
-};
-
-export const brandVariants = {
-  open: {
-    rotate: [0, 360],
-    transition: {
-      duration: DURATION_TIME * 0.1,
-      repeat: Infinity,
-    },
-  },
-  closed: {},
 };
 
 export const navBarVariants = {
