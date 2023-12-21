@@ -8,7 +8,11 @@ const RsSchoolIcon = () => {
   const isLight = resolvedTheme === 'light';
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 552.85 198.67">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 552.85 198.67"
+      data-testid="footer-rs-school"
+    >
       <title>rs_school</title>
       <g data-name="Layer 2">
         <g data-name="Layer 1">
