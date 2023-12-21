@@ -1,9 +1,22 @@
 import { NavigationButton } from './Button';
 import { NavigationLink } from './Link';
 import { useAuthContext } from '@/context/AuthContext';
+import { ReactNode } from 'react';
 
-const Links = () => {
+const Links = ({
+  direction = 'row',
+  className,
+}: {
+  direction?: 'row' | 'col';
+  className?: ReactNode;
+}) => {
   const { user, logout } = useAuthContext();
+  const dir = {
+    row: 'flex-row items-center',
+    col: 'flex-col justify-center',
+  };
+
+  const cn = `flex ${dir[direction]} ${className}`;
 
   if (user.isAuthenticated) {
     return (
