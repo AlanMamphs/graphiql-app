@@ -20,7 +20,12 @@ type GIQLElements =
   | 'login-submit-btn'
   | 'main-page'
   | 'not-found-page'
-  | 'server-error-page';
+  | 'server-error-page'
+  | 'theme-dropdown'
+  | 'theme-dropdown-links'
+  | 'theme-dropdown-links-light'
+  | 'theme-dropdown-links-dark'
+  | 'theme-dropdown-links-system';
 export const giql = (name: GIQLElements) => {
   return cy.get(`[data-testid="${name}"]`);
 };
