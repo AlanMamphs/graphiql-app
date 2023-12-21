@@ -21,6 +21,7 @@ export const NavbarComponent = () => {
       <Brand stage={stage} />
       <motion.div
         className="absolute inset-0 bg-gradient-to-t from-slate-700 to-slate-600 -z-10"
+        data-testid="nav-background"
         animate={stage}
         variants={{
           closed: {
