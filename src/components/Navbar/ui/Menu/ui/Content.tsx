@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Links } from '../../Links';
 import { DURATION_TIME } from '@/components/Navbar/lib/variants';
 
@@ -27,7 +27,7 @@ export const MenuContent = ({
   onClick?: () => void;
 }) => {
   return (
-    <motion.div
+    <m.div
       animate={stage}
       onClick={onClick}
       variants={variants}
@@ -35,6 +35,6 @@ export const MenuContent = ({
       className="absolute top-0 right-0 py-10 pl-4 items-center rounded-md bg-slate-700"
     >
       {stage === 'open' && <Links className="gap-1" direction="col" />}
-    </motion.div>
+    </m.div>
   );
 };

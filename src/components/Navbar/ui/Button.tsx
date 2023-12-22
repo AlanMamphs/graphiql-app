@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useState } from 'react';
 import { Typography } from './Typography';
 import { DURATION_TIME, underlineVariants } from '../lib/variants';
@@ -9,7 +9,7 @@ interface Props {
   text: string;
 }
 
-export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
+export const NavButton = ({ text, dataTestId, onClick }: Props) => {
   const [stage, setStage] = useState<keyof typeof underlineVariants>('start');
 
   const onHoverStart = () => {
@@ -23,20 +23,20 @@ export const NavigationButton = ({ text, dataTestId, onClick }: Props) => {
   };
 
   return (
-    <motion.button
+    <m.button
       data-testid={dataTestId}
       onClick={onClick}
-      className="relative flex w-fit py-2 items-center justify-center overflow-hidden text-white"
+      className="relative flex w-fit py-1 px-2 items-center justify-center overflow-hidden"
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
     >
       <Typography>{text}</Typography>
-      <motion.span
+      <m.span
         initial={{ left: '-100%' }}
         variants={underlineVariants}
         animate={stage}
-        className="h-[1px] absolute bottom-0 bg-white w-full"
+        className="h-[1px] absolute bottom-0 bg-black dark:bg-white w-full"
       />
-    </motion.button>
+    </m.button>
   );
 };

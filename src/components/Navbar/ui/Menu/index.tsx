@@ -1,5 +1,5 @@
 import { useStages } from '@/hooks/useStages';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { MenuButton } from './ui/Button';
 import { MenuContent } from './ui/Content';
 
@@ -9,9 +9,9 @@ export const Menu = () => {
   const handleFlag = stage === 'closed' ? onOpen : onClose;
 
   return (
-    <motion.div className="cursor-pointer" data-testid="nav-secondary-menu-btn">
+    <m.div className="cursor-pointer" data-testid="nav-secondary-menu-btn">
       <MenuButton onClick={handleFlag} stage={stage} />
       <MenuContent onClick={onClose} stage={stage} />
-    </motion.div>
+    </m.div>
   );
 };

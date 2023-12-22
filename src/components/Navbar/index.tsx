@@ -1,8 +1,6 @@
-'use client';
-
 import { useStages } from '@/hooks/useStages';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { DURATION_TIME } from './lib/variants';
+import { cn } from '@/lib/utils';
+import { m, useMotionValueEvent, useScroll } from 'framer-motion';
 import { Brand } from './ui/Brand';
 import { Links } from './ui/Links';
 
@@ -17,23 +15,21 @@ export const NavbarComponent = () => {
   });
 
   return (
-    <motion.header className="sticky flex justify-between top-0 px-1 py-2 z-10 text-white">
-      <Brand stage={stage} />
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-t from-slate-700 to-slate-600 -z-10"
+    <m.header className="sticky flex justify-between top-0 px-3 py-3 z-10">
+      <Brand />
+      <m.div
+        className={cn('absolute inset-0 -z-10')}
         animate={stage}
         variants={{
-          closed: {
-            height: 0,
-          },
           open: {
-            height: '100%',
+            bottom: 0,
+          },
+          closed: {
+            bottom: '100%',
           },
         }}
       />
-      <motion.div>
-        <Links className="gap-3" />
-      </motion.div>
-    </motion.header>
+      <Links className="gap-3" />
+    </m.header>
   );
 };

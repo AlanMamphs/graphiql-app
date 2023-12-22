@@ -1,4 +1,4 @@
-import { Navbar } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,19 +11,12 @@ interface LinkProps {
   dataTestId?: string;
 }
 
-const NavigationLink = ({
-  href,
-  currentPath,
-  dataTestId,
-  children,
-}: LinkProps) => {
-  const pathname = usePathname();
-
+const NavLink = ({ href, dataTestId, children }: LinkProps) => {
   return (
-    <Link data-testid={dataTestId} href={href}>
+    <Link href={href} data-testid={dataTestId}>
       {children}
     </Link>
   );
 };
 
-export { NavigationLink };
+export { NavLink };

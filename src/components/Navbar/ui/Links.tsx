@@ -1,7 +1,9 @@
-import { NavigationButton } from './Button';
-import { NavigationLink } from './Link';
+import { cn } from '@/lib/utils';
+import { NavButton } from './Button';
+import { NavLink } from './Link';
 import { useAuthContext } from '@/context/AuthContext';
 import { ReactNode } from 'react';
+import { ModeToggle } from '@/components/ThemeToggle';
 
 const Links = ({
   direction = 'row',
@@ -16,37 +18,38 @@ const Links = ({
     col: 'flex-col justify-center',
   };
 
-  const cn = `flex ${dir[direction]} ${className}`;
-
   if (user.isAuthenticated) {
     return (
-      <>
-        <NavigationLink
-          data-testid="nav-main-btn"
-          href="/main"
-          currentPath={'/'}
-        >
-          <NavigationButton text="Main" />
-        </NavigationLink>
+      <div className={cn('flex', dir[direction], className)}>
+        <NavLink data-testid="nav-main-btn" href="/main" currentPath="/">
+          <NavButton text="Main" />
+        </NavLink>
 
-        <NavigationButton
-          text="Sign out"
-          data-testid="nav-signout-btn"
-          onClick={logout}
-        />
-      </>
+        <NavLink data-testid="nav-main-btn" href="/signout" currentPath="/">
+          <NavButton
+            text="Sign out"
+            data-testid="nav-signout-btn"
+            onClick={logout}
+          />
+        </NavLink>
+
+        <ModeToggle />
+      </div>
     );
   }
 
   return (
-    <>
-      <NavigationLink href="/login" currentPath={'/login'}>
-        <NavigationButton text="Sign In" data-testid="nav-signin-btn" />
-      </NavigationLink>
-      <NavigationLink href="/login?signup=1" currentPath={'/login'}>
-        <NavigationButton text="Sign Up" data-testid="nav-signup-btn" />
-      </NavigationLink>
-    </>
+    <div className={cn('flex', dir[direction], className)}>
+      <NavLink href="/login" currentPath={'/login'}>
+        <NavButton text="Sign In" data-testid="nav-signin-btn" />
+      </NavLink>
+
+      <NavLink href="/login?signup=1" currentPath={'/login'}>
+        <NavButton text="Sign Up" data-testid="nav-signup-btn" />
+      </NavLink>
+
+      <ModeToggle />
+    </div>
   );
 };
 
