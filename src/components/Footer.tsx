@@ -58,7 +58,10 @@ export const FooterComponent = () => (
         link="https://github.com/richardpickman"
       />
 
-      <FooterGithubLink name="TODO" link="#" />
+      <FooterGithubLink
+        name="Alexander Youl"
+        link="https://github.com/formant56"
+      />
     </div>
   </div>
 );
