@@ -19,13 +19,12 @@ const variants = {
   },
 };
 
-export const MenuContent = ({
-  stage,
-  onClick,
-}: {
+interface Props {
   stage: 'open' | 'closed';
   onClick?: () => void;
-}) => {
+}
+
+export const MenuContent = ({ stage, onClick }: Props) => {
   return (
     <m.div
       animate={stage}
