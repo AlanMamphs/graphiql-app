@@ -19,6 +19,7 @@ export const NavbarComponent = () => {
       <Brand />
       <m.div
         className={cn('absolute inset-0 -z-10 border-b')}
+        data-testid="nav-background"
         animate={stage}
         variants={{
           open: {

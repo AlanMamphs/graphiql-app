@@ -9,7 +9,6 @@ export const HomePageContent: NextPage = function () {
       data-testid="welcome-banner"
       className="flex flex-col justify-center w-full h-full overflow-y-auto mx-auto"
     >
-      <div className="h-screen" />
       <Card className="flex flex-col justify-between p-4 shadow-sm lg:max-w-7xl m-4 h-[550px]">
         <div className="flex">
           <Link
@@ -54,6 +53,7 @@ export const HomePageContent: NextPage = function () {
           </div>
         </div>
       </Card>
+      <div className="h-screen" />
     </div>
   );
 };

@@ -21,14 +21,14 @@ const Links = ({
   if (user.isAuthenticated) {
     return (
       <div className={cn('flex', dir[direction], className)}>
-        <NavLink data-testid="nav-main-btn" href="/main" currentPath="/">
+        <NavLink dataTestId="nav-main-btn" href="/main" currentPath="/">
           <NavButton text="Main" />
         </NavLink>
 
-        <NavLink data-testid="nav-main-btn" href="/signout" currentPath="/">
+        <NavLink dataTestId="nav-main-btn" href="/" currentPath="/">
           <NavButton
             text="Sign out"
-            data-testid="nav-signout-btn"
+            dataTestId="nav-signout-btn"
             onClick={logout}
           />
         </NavLink>
@@ -41,11 +41,11 @@ const Links = ({
   return (
     <div className={cn('flex', dir[direction], className)}>
       <NavLink href="/login" currentPath={'/login'}>
-        <NavButton text="Sign In" data-testid="nav-signin-btn" />
+        <NavButton text="Sign In" dataTestId="nav-signin-btn" />
       </NavLink>
 
       <NavLink href="/login?signup=1" currentPath={'/login'}>
-        <NavButton text="Sign Up" data-testid="nav-signup-btn" />
+        <NavButton text="Sign Up" dataTestId="nav-signup-btn" />
       </NavLink>
 
       <ModeToggle />
