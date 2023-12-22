@@ -18,14 +18,14 @@ export const NavbarComponent = () => {
     <m.header className="sticky flex justify-between top-0 px-3 py-3 z-10">
       <Brand />
       <m.div
-        className={cn('absolute inset-0 -z-10')}
+        className={cn('absolute inset-0 -z-10 border-b')}
         animate={stage}
         variants={{
           open: {
-            bottom: 0,
+            y: 0,
           },
           closed: {
-            bottom: '100%',
+            y: '-100%',
           },
         }}
       />
