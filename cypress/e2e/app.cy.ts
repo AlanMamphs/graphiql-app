@@ -56,6 +56,6 @@ describe('Welcome Page', () => {
 
     // Scroll for sticky header to appear
     cy.scrollTo(0, 400);
-    cy.giql('nav-background').should('not.be.visible');
+    cy.giql('nav-background').should('be.visible');
   });
 });
