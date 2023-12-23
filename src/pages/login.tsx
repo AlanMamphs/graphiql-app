@@ -9,16 +9,23 @@ import {
   SignUpForm,
   SignUpDataType,
 } from '@/features/auth';
-import { Alert, Button } from 'flowbite-react';
-import { HiInformationCircle } from 'react-icons/hi';
+import { DangerAlert } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { NextPageContext } from 'next';
+import { useEffect, useState } from 'react';
 
 const Login = (
   props: Awaited<ReturnType<typeof getServerSideProps>>['props']
 ) => {
+  const [error, setError] = useState<string>();
   const router = useRouter();
-  const error = router.query.error;
   const isSignup = (router.query.signup ?? '0') === '1';
+
+  useEffect(() => {
+    if (router.query.error) {
+      setError(router.query.error as string);
+    }
+  }, [router.query.error]);
 
   const parsedError = () => {
     switch (error) {
@@ -33,40 +40,46 @@ const Login = (
   const handleSignIn = async (data: SignInDataType) => {
     await signIn('credentials', {
       redirect: true,
-      callbackUrl: '/',
+      callbackUrl: '/playground',
       ...data,
     });
   };
 
   const handleSignUp = async (data: SignUpDataType) => {
-    await signIn('credentials', {
-      redirect: true,
-      callbackUrl: '/',
-
-      ...data,
+    const resp = await fetch('/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
+
+    if (resp.status === 200) {
+      await signIn('credentials', {
+        redirect: true,
+        callbackUrl: '/playground',
+        email: data.email,
+        password: data.password,
+      });
+    }
+    if (resp.status > 300) {
+      const data = await resp.json();
+      setError(data.message);
+    }
   };
   return (
     <div className="flex flex-col justify-center relative h-full w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
-      {error && (
-        <Alert
-          data-testid="login-error"
-          color="failure"
-          icon={HiInformationCircle}
-        >
-          <span className="font-medium">Auth Error!</span> {parsedError()}
-        </Alert>
-      )}
-
       {props?.providers?.['credentials'] && isSignup ? (
         <SignUpForm onSubmit={handleSignUp} />
       ) : (
         <SignInForm onSubmit={handleSignIn} />
       )}
+      {error && (
+        <DangerAlert className="mt-3" data-testid="login-error">
+          <span className="font-medium">Auth Error!</span> {parsedError()}
+        </DangerAlert>
+      )}
       {props?.providers?.google && (
         <Button
           onClick={() => signIn('google', { redirect: true, callbackUrl: '/' })}
-          outline
+          variant="outline"
           className="mt-4"
         >
           <Image

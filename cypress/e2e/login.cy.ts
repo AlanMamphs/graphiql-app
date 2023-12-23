@@ -1,4 +1,4 @@
-it('Expect Login Page to redirect authenticated user to welcome page', () => {
+it('Expect Login Page to redirect authenticated user to main page and logout to welcome page', () => {
   cy.visit('/');
   // Navigate to Login Page and authenticate
   cy.giql('nav-signin-btn').click();
@@ -7,7 +7,7 @@ it('Expect Login Page to redirect authenticated user to welcome page', () => {
 
   cy.login();
 
-  cy.location('pathname').should('eq', '/');
+  cy.location('pathname').should('eq', '/playground');
 
   // Try to visit login page again:
   cy.visit('/login');

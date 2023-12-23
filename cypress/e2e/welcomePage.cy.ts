@@ -22,17 +22,12 @@ it('Welcome page is rendered properly', () => {
 
   cy.login({});
 
-  cy.giql('welcome-banner').should('be.visible');
-  cy.giql('welcome-signin-btn').should('not.exist');
-
   // Assert that Main page is displayed now
-  cy.giql('main-page').should('not.exist');
   cy.giql('nav-signout-btn').should('be.visible');
+  cy.giql('nav-main-btn').should('be.visible');
+
   cy.giql('nav-signin-btn').should('not.exist');
   cy.giql('nav-signup-btn').should('not.exist');
-  cy.giql('nav-main-btn').should('be.visible');
-  cy.giql('nav-main-btn').click();
-
   cy.url().should('contain', '/playground');
   cy.giql('main-page').should('be.visible');
 

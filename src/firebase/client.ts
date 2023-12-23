@@ -1,6 +1,8 @@
 import * as firebase from 'firebase/app';
+import { FirestoreAdapter } from '@auth/firebase-adapter';
 
 import { getAuth } from 'firebase/auth';
+import { cert } from 'firebase-admin/app';
 
 const clientCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,5 +19,16 @@ if (!firebase?.getApps().length) {
 
 const app = firebase.getApp();
 const auth = getAuth();
+
+const adapter = FirestoreAdapter({
+  credential: cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY
+      ? atob(process.env.FIREBASE_PRIVATE_KEY)
+      : undefined,
+  }),
+});
+
 export default firebase;
-export { auth, app };
+export { auth, app, adapter };

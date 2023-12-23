@@ -6,9 +6,9 @@ const Main = () => {
   return (
     <div
       data-testid="main-page"
-      className="text-center bg-gray-50 my-10 dark:bg-gray-900"
+      className="text-center bg-gray-50 my-10 dark:bg-gray-900 "
     >
-      Main Page ${data?.user?.email}
+      Main Page {data?.user?.email}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import { Button, Label, TextInput } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { InputField } from '@/components/ui/InputField';
 
 import { PasswordStrengthIndicator } from './components/PasswordStrength';
 
@@ -16,16 +17,12 @@ export const SignUpForm = (props: {
   const {
     handleSubmit,
     register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
     watch,
   } = useForm<SignUpDataType>({
     resolver,
     mode: 'onBlur',
   });
-
-  const fieldColor = (field: keyof SignUpDataType) => {
-    if (errors[field]) return 'failure';
-  };
 
   return (
     <div className="text-left">
@@ -37,81 +34,60 @@ export const SignUpForm = (props: {
         <h2 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">
           Sign Up
         </h2>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="firstname" value="Your Firstname" />
-          </div>
-          <TextInput
-            id="firstname"
-            data-testid="login-firstname"
-            type="text"
-            placeholder="Jane"
-            {...register('firstname')}
-            color={fieldColor('firstname')}
-            helperText={errors.firstname?.message}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="lastname" value="Your Lastname" />
-          </div>
-          <TextInput
-            id="name"
-            data-testid="login-lastname"
-            type="text"
-            placeholder="Doe"
-            {...register('lastname')}
-            color={fieldColor('lastname')}
-            helperText={errors.lastname?.message}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email" value="Your email" />
-          </div>
-          <TextInput
-            id="email"
-            data-testid="login-email"
-            type="email"
-            placeholder="jane.doe@example.com"
-            {...register('email')}
-            color={fieldColor('email')}
-            helperText={errors.email?.message}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your password" />
-          </div>
-          <TextInput
+        <InputField
+          label="Your Firstname"
+          id="firstname"
+          data-testid="login-firstname"
+          type="text"
+          placeholder="Jane"
+          {...register('firstname')}
+          error={errors.firstname?.message}
+        />
+        <InputField
+          label="Your lastname"
+          id="lastname"
+          data-testid="login-lastname"
+          type="text"
+          placeholder="Doe"
+          {...register('lastname')}
+          error={errors.lastname?.message}
+        />
+
+        <InputField
+          label="Your e-mail"
+          id="email"
+          data-testid="login-email"
+          type="email"
+          placeholder="jane.doe@example.com"
+          {...register('email')}
+          error={errors.email?.message}
+        />
+
+        <>
+          <InputField
+            label="Your password"
             data-testid="login-password"
             id="password1"
             type="password"
             {...register('password')}
-            color={fieldColor('password')}
-            helperText={errors.password?.message}
+            error={errors.password?.message}
           />
           {watch('password') && (
             <PasswordStrengthIndicator password={watch('password', '')} />
           )}
-        </div>
+        </>
 
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="password2" value="Confirm password" />
-          </div>
-          <TextInput
-            id="password2"
-            data-testid="login-confirm-pswd"
-            type="password"
-            color={fieldColor('confirmPswd')}
-            helperText={errors.confirmPswd?.message}
-            {...register('confirmPswd')}
-          />
-        </div>
+        <InputField
+          label="Confirm password"
+          id="password2"
+          data-testid="login-confirm-pswd"
+          type="password"
+          {...register('confirmPswd')}
+          error={errors.confirmPswd?.message}
+        />
 
         <Button
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting}
           data-testid="login-submit-btn"
           type="submit"
         >
