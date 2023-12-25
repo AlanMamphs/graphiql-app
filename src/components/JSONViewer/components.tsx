@@ -9,8 +9,7 @@ interface KeyProps {
 export const KeyWrapper = memo(
   ({ keyString, children }: { keyString: string; children: ReactNode }) => (
     <span>
-      <span className="text-orange-400">&quot;{keyString}&quot;</span>:{' '}
-      {children}
+      <span className="text-key">&quot;{keyString}&quot;</span>: {children}
     </span>
   )
 );
@@ -19,7 +18,7 @@ KeyWrapper.displayName = 'KeyWrapper';
 
 export const StringComponent = ({ keyString, value }: KeyProps) => (
   <KeyWrapper keyString={keyString}>
-    <span className="text-emerald-400">
+    <span className="text-string">
       &quot;{value.replace('\n', '').replace('\r', '')}&quot;
     </span>
     , <br />
@@ -33,7 +32,7 @@ interface NumberProps {
 
 export const NumberComponent = ({ keyString, value }: NumberProps) => (
   <KeyWrapper keyString={keyString}>
-    <span className="text-blue-400">{value}</span>, <br />
+    <span className="text-number">{value}</span>, <br />
   </KeyWrapper>
 );
 
@@ -44,7 +43,7 @@ interface BooleanProps {
 
 export const BooleanComponent = ({ keyString, value }: BooleanProps) => (
   <KeyWrapper keyString={keyString}>
-    <span className="text-violet-400">{String(value)}</span>, <br />
+    <span className="text-boolean">{String(value)}</span>, <br />
   </KeyWrapper>
 );
 
@@ -56,9 +55,9 @@ interface ObjectProps {
 export const ObjectComponent = ({ keyString, value }: ObjectProps) => {
   return (
     <KeyWrapper keyString={keyString}>
-      <span className="text-slate-400">{`{`}</span> <br />
+      <span className="text-special">{`{`}</span> <br />
       <div className="pl-5">{getJsonNodes(value)}</div>
-      <span className="text-slate-400">{`}`}</span>, <br />
+      <span className="text-special">{`}`}</span>, <br />
     </KeyWrapper>
   );
 };
@@ -70,8 +69,8 @@ interface ArrayProps {
 
 export const ArrayComponent = ({ keyString, value }: ArrayProps) => (
   <KeyWrapper keyString={keyString}>
-    <span className="text-slate-400">{`[`}</span> <br />
+    <span className="text-special">{`[`}</span> <br />
     <div className="pl-5">{getJsonNodes(value as Record<string, unknown>)}</div>
-    <span className="text-slate-400">{`]`}</span>, <br />
+    <span className="text-special">{`]`}</span>, <br />
   </KeyWrapper>
 );
