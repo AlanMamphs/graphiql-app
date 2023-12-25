@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   ArrayComponent,
   BooleanComponent,
@@ -6,45 +7,30 @@ import {
   StringComponent,
 } from './components';
 
-export const getJsonNodes = (
-  obj: Record<string, unknown>,
-  offset: number = 0
-) => {
-  const arr = [];
+export const getJsonNodes = (obj: Record<string, unknown>) => {
+  const arr: ReactNode[] = [];
+
+  const p = (item: ReactNode) => arr.push(item);
 
   for (let [key, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
-      arr.push(
-        <StringComponent keyString={key} value={value} offset={offset} />
-      );
+      p(<StringComponent keyString={key} value={value} />);
     }
 
     if (typeof value === 'number') {
-      arr.push(
-        <NumberComponent keyString={key} value={value} offset={offset} />
-      );
+      p(<NumberComponent keyString={key} value={value} />);
     }
 
     if (typeof value === 'boolean') {
-      arr.push(
-        <BooleanComponent keyString={key} value={value} offset={offset} />
-      );
+      p(<BooleanComponent keyString={key} value={value} />);
     }
 
     if (!Array.isArray(value) && typeof value === 'object') {
-      arr.push(
-        <ObjectComponent
-          keyString={key}
-          value={value as Record<string, unknown>}
-          offset={offset}
-        />
-      );
+      p(<ObjectComponent keyString={key} value={value as typeof obj} />);
     }
 
     if (Array.isArray(value)) {
-      arr.push(
-        <ArrayComponent keyString={key} value={value} offset={offset} />
-      );
+      p(<ArrayComponent keyString={key} value={value} />);
     }
   }
 
