@@ -25,7 +25,7 @@ const handler: NextApiHandler = async (req, res) => {
       const error = err as FirebaseError;
       return res.status(500).json({ message: error.code });
     }
-    return res.status(200).json({ text: 'OK' });
+    return res.status(200).json({ message: 'OK' });
   }
 
   return res.status(401);

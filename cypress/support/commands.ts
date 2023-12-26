@@ -29,7 +29,9 @@ type GIQLElements =
   | 'theme-dropdown-links'
   | 'theme-dropdown-links-light'
   | 'theme-dropdown-links-dark'
-  | 'theme-dropdown-links-system';
+  | 'theme-dropdown-links-system'
+  | 'nav-background';
+
 export const giql = (name: GIQLElements) => {
   return cy.get(`[data-testid="${name}"]`);
 };

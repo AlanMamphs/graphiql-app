@@ -52,9 +52,8 @@ const Login = (
     });
 
     if (resp.status === 200) {
-      await signIn('credentials', {
-        redirect: true,
-        callbackUrl: '/playground',
+      // Sign In right after successfull registration
+      await handleSignIn({
         email: data.email,
         password: data.password,
       });
