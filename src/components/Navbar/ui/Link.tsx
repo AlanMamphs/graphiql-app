@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 
 interface LinkProps {
   href: string;
-  currentPath: string;
   children: ReactNode;
   dataTestId?: string;
 }
