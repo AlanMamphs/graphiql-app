@@ -1,9 +1,8 @@
 it('Expect Sign Up Form to fail with human readable error', () => {
   cy.visit('/');
-  // Navigate to Sign In Page and authenticate
+  // Navigate to Sign Up Page and authenticate
   cy.giql('nav-signup-btn').click();
-  cy.location('pathname').should('eq', '/login');
-  cy.url().should('contain', '?signup=1');
+  cy.location('pathname').should('eq', '/signup');
 
   cy.giql('login-firstname').type('Jane');
   cy.giql('login-lastname').type('Doe');
@@ -23,7 +22,7 @@ it('Expect Sign Up Form to fail with human readable error', () => {
 });
 
 it('Expect to show field error', () => {
-  cy.visit('/login?signup=1');
+  cy.visit('/signup');
   cy.giql('login-error').should('not.exist');
 
   cy.giql('login-signup-form').should('be.visible');

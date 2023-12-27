@@ -52,10 +52,10 @@ export const HomePageContent: NextPage = function () {
           </div>
           {status === 'unauthenticated' && (
             <div className="flex flex-shrink-0 items-center gap-2">
-              <Link href="/login?signup=0">
+              <Link href="/signin">
                 <Button data-testid="welcome-signin-btn">Sign In</Button>
               </Link>
-              <Link href="/login?signup=1">
+              <Link href="/signup">
                 <Button data-testid="welcome-signup-btn">Sign up</Button>
               </Link>
             </div>

@@ -61,8 +61,8 @@ export default NextAuth({
     strategy: 'jwt',
   },
   pages: {
-    signIn: '/login',
-    newUser: '/login',
-    error: '/login',
+    signIn: '/signin',
+    newUser: '/signup',
+    error: '/signin',
   },
 });

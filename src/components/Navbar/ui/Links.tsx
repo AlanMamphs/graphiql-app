@@ -20,11 +20,11 @@ const Links = ({ direction = 'row', className }: Props) => {
   if (status === 'authenticated') {
     return (
       <div className={cn('flex', dir[direction], className)}>
-        <NavLink href="/playground" currentPath="/">
+        <NavLink href="/playground">
           <NavButton text="Main" dataTestId="nav-main-btn" />
         </NavLink>
 
-        <NavLink href="/" currentPath="/">
+        <NavLink href="/">
           <NavButton
             text="Sign out"
             dataTestId="nav-signout-btn"
@@ -39,11 +39,11 @@ const Links = ({ direction = 'row', className }: Props) => {
 
   return (
     <div className={cn('flex', dir[direction], className)}>
-      <NavLink href="/login?signup=0" currentPath="/login">
+      <NavLink href="/signin">
         <NavButton text="Sign In" dataTestId="nav-signin-btn" />
       </NavLink>
 
-      <NavLink href="/login?signup=1" currentPath="/login">
+      <NavLink href="/signup">
         <NavButton text="Sign Up" dataTestId="nav-signup-btn" />
       </NavLink>
 
