@@ -12,9 +12,9 @@ export const HomePageContent: NextPage = function () {
   return (
     <div
       data-testid="welcome-banner"
-      className="flex flex-col justify-center w-full h-full overflow-y-auto mx-auto"
+      className="flex flex-col justify-start items-center w-full min-h-screen overflow-y-auto mx-auto"
     >
-      <Card className="flex flex-col justify-between p-4 shadow-sm lg:max-w-7xl m-4 h-[550px]">
+      <Card className="flex flex-col justify-between p-4 shadow-sm lg:max-w-7xl m-4">
         <div className="flex">
           <Link
             href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md"
@@ -62,7 +62,6 @@ export const HomePageContent: NextPage = function () {
           )}
         </div>
       </Card>
-      <div className="h-screen" />
     </div>
   );
 };

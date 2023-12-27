@@ -17,6 +17,9 @@ const config: Config = {
       },
     },
     extend: {
+      minHeight: {
+        'full-main': 'calc(100vh - 10rem)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

@@ -1,16 +1,19 @@
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-
 import { InputField } from '@/components/ui/InputField';
+import { DangerAlert } from '@/components/ui/alert';
 
 import {
   signInDataSchema,
   SignInDataType,
   useYupValidationResolver,
 } from './Schema';
+import { GoogleAuthButton } from './components';
 
 export const SignInForm = (props: {
   onSubmit: (data: SignInDataType) => void;
+  error?: string;
 }) => {
   const resolver = useYupValidationResolver(signInDataSchema);
   const {
@@ -58,6 +61,19 @@ export const SignInForm = (props: {
           Submit
         </Button>
       </form>
+
+      {props.error && (
+        <DangerAlert className="mt-3" data-testid="login-error">
+          <span className="font-medium">Auth Error!</span> {props.error}
+        </DangerAlert>
+      )}
+      <GoogleAuthButton className="mt-3" />
+      <p className="mt-4 dark:text-white">
+        Don&apos;have an account?{' '}
+        <Link href="/signup">
+          <span className="text-blue-600 hover:underline">Sign up</span>
+        </Link>
+      </p>
     </div>
   );
 };
