@@ -23,11 +23,11 @@ export const SignInForm = (props: {
   });
 
   return (
-    <div className="text-left">
+    <div className="text-left w-full flex flex-col p-1">
       <form
         data-testid="login-signin-form"
         onSubmit={handleSubmit(props.onSubmit)}
-        className="flex max-w-md flex-col gap-4 "
+        className="flex flex-col gap-4 w-full"
       >
         <h2 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">
           Sign In
