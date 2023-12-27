@@ -1,10 +1,7 @@
-import Link from 'next/link';
+import { useState } from 'react';
 import { getSession, signIn } from 'next-auth/react';
 import { SignUpForm, SignUpDataType } from '@/features/auth';
-import { DangerAlert } from '@/components/ui/alert';
 import { NextPageContext } from 'next';
-import { useState } from 'react';
-import { GoogleAuthButton } from '@/features/auth/components';
 
 const Signup = () => {
   const [error, setError] = useState<string>();
@@ -35,20 +32,8 @@ const Signup = () => {
     }
   };
   return (
-    <div className="flex flex-col justify-center relative h-full w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
-      <SignUpForm onSubmit={handleSignUp} />
-      {error && (
-        <DangerAlert className="mt-3" data-testid="login-error">
-          <span className="font-medium">Auth Error!</span> {parsedError()}
-        </DangerAlert>
-      )}
-      <GoogleAuthButton />
-      <p className="mt-4 dark:text-white">
-        Already have an account?{' '}
-        <Link href="/signin">
-          <span className="text-blue-600 hover:underline">Sign in</span>
-        </Link>
-      </p>
+    <div className="flex flex-col justify-center relative h-full min-h-full-main w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
+      <SignUpForm onSubmit={handleSignUp} error={parsedError()} />
     </div>
   );
 };

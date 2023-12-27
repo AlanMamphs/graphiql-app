@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { InputField } from '@/components/ui/InputField';
+import { DangerAlert } from '@/components/ui/alert';
 
 import { PasswordStrengthIndicator } from './components/PasswordStrength';
 
@@ -9,9 +11,11 @@ import {
   signUpDataSchema,
   useYupValidationResolver,
 } from './Schema';
+import { GoogleAuthButton } from './components';
 
 export const SignUpForm = (props: {
   onSubmit: (data: SignUpDataType) => void;
+  error?: string;
 }) => {
   const resolver = useYupValidationResolver(signUpDataSchema);
   const {
@@ -25,11 +29,11 @@ export const SignUpForm = (props: {
   });
 
   return (
-    <div className="text-left">
+    <div className="text-left w-full flex flex-col p-1">
       <form
         data-testid="login-signup-form"
         onSubmit={handleSubmit(props.onSubmit)}
-        className="flex max-w-md flex-col gap-4 "
+        className="flex flex-col gap-4 w-full"
       >
         <h2 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">
           Sign Up
@@ -94,6 +98,18 @@ export const SignUpForm = (props: {
           Submit
         </Button>
       </form>
+      {props.error && (
+        <DangerAlert className="mt-3" data-testid="login-error">
+          <span className="font-medium">Auth Error!</span> {props.error}
+        </DangerAlert>
+      )}
+      <GoogleAuthButton className="mt-4" />
+      <p className="mt-4 dark:text-white">
+        Already have an account?{' '}
+        <Link href="/signin">
+          <span className="text-blue-600 hover:underline">Sign in</span>
+        </Link>
+      </p>
     </div>
   );
 };
