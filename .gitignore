@@ -39,3 +39,8 @@ next-env.d.ts
 /cypress/screenshots
 /cypress/videos
 /.nyc_output
+
+# environment vars
+.env
+.env.development
+.env.production
