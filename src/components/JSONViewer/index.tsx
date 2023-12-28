@@ -5,11 +5,11 @@ export const JsonViewer = <T extends object>({ obj }: { obj: T }) => {
     <div className="root">
       {Object.entries(obj).map(([key, value]) => {
         if (typeof value === 'object' && value !== undefined) {
-          return <BlockView keyString={key} value={value} />;
+          return <BlockView key={key} keyString={key} value={value} />;
         }
 
         if (typeof value !== 'object' && value) {
-          return <InlineView keyString={key} value={value} />;
+          return <InlineView key={key} keyString={key} value={value} />;
         }
       })}
     </div>

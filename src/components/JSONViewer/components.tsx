@@ -11,7 +11,7 @@ const getClassNameByValueType = (value: unknown) =>
   valueTypeToClassNameMap[typeof value] ?? valueTypeToClassNameMap['undefined'];
 
 const Key = ({ text }: { text: string }) => (
-  <div className="text-key">"{text}":</div>
+  <div className="text-key">&quot;{text}&quot;:</div>
 );
 
 interface ViewProps {
