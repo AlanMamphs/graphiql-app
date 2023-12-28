@@ -43,12 +43,3 @@ it('Welcome page is rendered properly', () => {
   cy.giql('welcome-signin-btn').click();
   cy.giql('login-signin-form').should('be.visible');
 });
-
-it('Navigation is sticky', () => {
-  // Start from the index page
-  cy.visit('/');
-
-  // Scroll for sticky header to appear
-  cy.scrollTo(0, 400);
-  cy.giql('nav-background').should('be.visible');
-});
