@@ -1,76 +1,44 @@
-import { ReactNode, memo } from 'react';
-import { getJsonNodes } from './lib';
+import { JsonViewer } from '.';
 
-interface KeyProps {
-  keyString: string;
-  value: string;
-}
-
-export const KeyWrapper = memo(
-  ({ keyString, children }: { keyString: string; children: ReactNode }) => (
-    <span>
-      <span className="text-key">&quot;{keyString}&quot;</span>: {children}
-    </span>
-  )
-);
-
-KeyWrapper.displayName = 'KeyWrapper';
-
-export const StringComponent = ({ keyString, value }: KeyProps) => (
-  <KeyWrapper keyString={keyString}>
-    <span className="text-string">
-      &quot;{value.replace('\n', '').replace('\r', '')}&quot;
-    </span>
-    , <br />
-  </KeyWrapper>
-);
-
-interface NumberProps {
-  keyString: string;
-  value: number;
-}
-
-export const NumberComponent = ({ keyString, value }: NumberProps) => (
-  <KeyWrapper keyString={keyString}>
-    <span className="text-number">{value}</span>, <br />
-  </KeyWrapper>
-);
-
-interface BooleanProps {
-  keyString: string;
-  value: boolean;
-}
-
-export const BooleanComponent = ({ keyString, value }: BooleanProps) => (
-  <KeyWrapper keyString={keyString}>
-    <span className="text-boolean">{String(value)}</span>, <br />
-  </KeyWrapper>
-);
-
-interface ObjectProps {
-  keyString: string;
-  value: Record<string, unknown>;
-}
-
-export const ObjectComponent = ({ keyString, value }: ObjectProps) => {
-  return (
-    <KeyWrapper keyString={keyString}>
-      <span className="text-special">{`{`}</span> <br />
-      <div className="pl-5">{getJsonNodes(value)}</div>
-      <span className="text-special">{`}`}</span>, <br />
-    </KeyWrapper>
-  );
+const valueTypeToClassNameMap: { [k: string]: string } = {
+  string: 'text-string',
+  number: 'text-number',
+  boolean: 'text-boolean',
+  undefined: '',
 };
 
-interface ArrayProps {
+const getClassNameByValueType = (value: unknown) =>
+  valueTypeToClassNameMap[typeof value] ?? valueTypeToClassNameMap['undefined'];
+
+const Key = ({ text }: { text: string }) => (
+  <div className="text-key">"{text}":</div>
+);
+
+interface ViewProps {
   keyString: string;
-  value: object | null;
+  value: string | Record<string, unknown>;
 }
 
-export const ArrayComponent = ({ keyString, value }: ArrayProps) => (
-  <KeyWrapper keyString={keyString}>
-    <span className="text-special">{`[`}</span> <br />
-    <div className="pl-5">{getJsonNodes(value as Record<string, unknown>)}</div>
-    <span className="text-special">{`]`}</span>, <br />
-  </KeyWrapper>
+export const InlineView = ({ keyString, value }: ViewProps) => (
+  <div className="flex gap-2 items-start">
+    <Key text={keyString} />
+    <div className={getClassNameByValueType(value)}>
+      {typeof value === 'string' ? `"${value}"` : String(value)}
+    </div>
+  </div>
+);
+
+export const BlockView = ({ keyString, value }: ViewProps) => (
+  <div className="flex flex-col gap-1 items-start">
+    <div className="flex gap-2">
+      <Key text={keyString} />
+      <p>{Array.isArray(value) ? '[' : '{'}</p>
+    </div>
+    <div className={getClassNameByValueType(value)}>
+      <div className="pl-5">
+        <JsonViewer obj={value as Record<string, unknown>} />
+      </div>
+      <p>{Array.isArray(value) ? '],' : '},'}</p>
+    </div>
+  </div>
 );
