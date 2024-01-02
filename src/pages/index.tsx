@@ -62,6 +62,8 @@ export const HomePageContent: NextPage = function () {
           )}
         </div>
       </Card>
+      <div className="h-screen" />
+      <div className="h-screen" />
     </div>
   );
 };
