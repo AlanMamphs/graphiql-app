@@ -1,13 +1,17 @@
+'use client';
+
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { JsonViewer } from '.';
+import { CloseButton, OpenButton } from './ExpandButtons/Buttons';
 
 const afterContent = "after:content-[','] after:text-neutral-100";
 
 const valueTypeToClassNameMap: { [k: string]: string } = {
-  string: cn('text-string', afterContent),
-  number: cn('text-number', afterContent),
-  boolean: cn('text-boolean', afterContent),
-  null: cn('text-neutral-100', afterContent),
+  string: cn('select-none text-string', afterContent),
+  number: cn('select-none text-number', afterContent),
+  boolean: cn('select-none text-boolean', afterContent),
+  null: cn('select-none text-neutral-100', afterContent),
   undefined: '',
 };
 
@@ -45,19 +49,42 @@ export const InlineView = ({ keyString, value }: InlineProps) => {
   );
 };
 
-export const BlockView = ({ keyString, value }: BlockProps) => (
-  <div className="flex flex-col gap-1 items-start">
-    <div className="flex gap-2">
-      <Key text={keyString} />
-      <p>{Array.isArray(value) ? '[' : '{'}</p>
-    </div>
-    <div className={getClassNameByValueType(value)}>
-      <div className="pl-5">
-        <JsonViewer obj={value as Record<string, unknown>} />
+export const BlockView = ({ keyString, value }: BlockProps) => {
+  const [isExpanded, setExpanded] = useState(true);
+
+  const rootClassName = cn(
+    isExpanded ? 'flex-col gap-1' : 'flex-row',
+    'flex items-start'
+  );
+
+  const nestedClassName = cn(isExpanded ? 'block' : 'hidden', 'pl-5');
+
+  return (
+    <div className={rootClassName}>
+      <div className="flex gap-2 items-center">
+        <Key text={keyString} />
+        <p>{Array.isArray(value) ? '[' : '{'}</p>
+        <OpenButton
+          isExpanded={isExpanded}
+          onClick={() => setExpanded(false)}
+        />
+      </div>
+      <div className={getClassNameByValueType(value)}>
+        {isExpanded && (
+          <div className={nestedClassName}>
+            <JsonViewer obj={value as Record<string, unknown>} />
+          </div>
+        )}
+
+        {!isExpanded && <p>...</p>}
+      </div>
+      <div className="flex items-center">
+        <p className={cn(afterContent)}>{Array.isArray(value) ? ']' : '}'}</p>
+        <CloseButton
+          isExpanded={!isExpanded}
+          onClick={() => setExpanded(true)}
+        />
       </div>
     </div>
-    <div className="flex">
-      <p className={cn(afterContent)}>{Array.isArray(value) ? ']' : '}'}</p>
-    </div>
-  </div>
-);
+  );
+};

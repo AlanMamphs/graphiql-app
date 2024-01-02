@@ -12,13 +12,13 @@ const obj = {
   object: {
     key: 'value',
     value: {
-      object: { key: 'value' },
-      array: ['element1', 'element2'],
-      undefinedValue: undefined,
-      nullValue: null,
-      boolean: true,
-      number: 42,
-      string: 'This is a string',
+      object1: { key: 'value' },
+      array2: ['element1', 'element2'],
+      undefinedValue3: undefined,
+      nullValue4: null,
+      boolean5: true,
+      number6: 42,
+      string7: 'This is a string',
     },
   },
 };
