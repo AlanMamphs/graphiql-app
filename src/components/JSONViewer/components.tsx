@@ -1,14 +1,24 @@
+import { cn } from '@/lib/utils';
 import { JsonViewer } from '.';
 
+const afterContent = "after:content-[','] after:text-neutral-100";
+
 const valueTypeToClassNameMap: { [k: string]: string } = {
-  string: 'text-string',
-  number: 'text-number',
-  boolean: 'text-boolean',
+  string: cn('text-string', afterContent),
+  number: cn('text-number', afterContent),
+  boolean: cn('text-boolean', afterContent),
+  null: cn('text-neutral-100', afterContent),
   undefined: '',
 };
 
-const getClassNameByValueType = (value: unknown) =>
-  valueTypeToClassNameMap[typeof value] ?? valueTypeToClassNameMap['undefined'];
+const getClassNameByValueType = (value: unknown) => {
+  if (value === null) {
+    return valueTypeToClassNameMap['null'];
+  }
+
+  const key = typeof value;
+  return valueTypeToClassNameMap[key];
+};
 
 const Key = ({ text }: { text: string }) => (
   <div className="text-key">&quot;{text}&quot;:</div>
@@ -24,14 +34,16 @@ interface InlineProps {
   value: string | number | null;
 }
 
-export const InlineView = ({ keyString, value }: InlineProps) => (
-  <div className="flex gap-2 items-start">
-    <Key text={keyString} />
-    <div className={getClassNameByValueType(value)}>
-      {typeof value === 'string' ? `"${value}"` : String(value)}
+export const InlineView = ({ keyString, value }: InlineProps) => {
+  return (
+    <div className="flex gap-2 items-start">
+      <Key text={keyString} />
+      <div className={getClassNameByValueType(value)}>
+        {typeof value === 'string' ? `"${value}"` : String(value)}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const BlockView = ({ keyString, value }: BlockProps) => (
   <div className="flex flex-col gap-1 items-start">
@@ -45,8 +57,7 @@ export const BlockView = ({ keyString, value }: BlockProps) => (
       </div>
     </div>
     <div className="flex">
-      <p className="text-start">{Array.isArray(value) ? ']' : '}'}</p>
-      {','}
+      <p className={cn(afterContent)}>{Array.isArray(value) ? ']' : '}'}</p>
     </div>
   </div>
 );

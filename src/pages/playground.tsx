@@ -29,7 +29,7 @@ const Main = () => {
   return (
     <div
       data-testid="main-page"
-      className="text-center bg-gray-50 my-10 dark:bg-gray-900 "
+      className="text-center bg-gray-50 my-2 mx-2 py-2 px-2 dark:bg-gray-900"
     >
       <JsonViewer obj={validatedObject} />
     </div>
