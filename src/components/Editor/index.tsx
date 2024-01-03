@@ -23,30 +23,31 @@ const getFormattedJSXes = (text: string) => {
 };
 
 const HighlightedText = ({ value }: { value: string }) => {
+  // Here I am defining 2 state for current line rendering, and rendering recursively next lines
   const [text, setText] = useState<string>('');
   const [children, setChildren] = useState<string | null>(null);
 
   useEffect(() => {
-    const prettifyRow = (label: string) => {
-      if (label.length > 80) {
-        setText(label + '\n');
-      }
-
-      setText(label);
-    };
-
     if (value.includes('\n')) {
       const arr = value.split('\n');
 
-      prettifyRow(arr[0]);
+      // I am getting the first line to be printed in current iteration.
+      setText(arr[0]);
+
+      // I am getting the rest of text, that will be reprinted recursively
       setChildren(arr.slice(1).join('\n'));
     } else {
-      prettifyRow(value);
+      setText(value);
     }
   }, [value]);
 
+  /* I am getting formatted JSX array, that contains each word wrapped in colored
+  span. (Right now its a rudimentary, because I thought, that we must highlight
+  all syntax features from GraphQL, but looks like it was overhead) */
+
   const formattedHeader = getFormattedJSXes(text);
 
+  /* Repeat the whole process for rest of the text, that was set to new line*/
   return (
     <>
       {formattedHeader}
@@ -62,6 +63,8 @@ const HighlightedText = ({ value }: { value: string }) => {
 
 export const Editor = () => {
   const ref = useRef<HTMLTextAreaElement | null>(null);
+
+  // This state is being used by output box, updating by changes in textarea input.
   const [text, setText] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -69,7 +72,9 @@ export const Editor = () => {
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    // I am listening for each key press to catch specific buttons, don't know why.
     if (ref.current) {
+      // On enter I am getting the current cursor position and inserting new line with tab
       if (event.key === 'Enter') {
         event.preventDefault();
         const posStart = event.currentTarget.selectionStart;
@@ -84,6 +89,7 @@ export const Editor = () => {
         ref.current.selectionEnd = posStart + 5;
       }
 
+      // Basically the same as enter, but inserting the tab without new line;
       if (event.key === 'Tab') {
         event.preventDefault();
         const posStart = event.currentTarget.selectionStart;
