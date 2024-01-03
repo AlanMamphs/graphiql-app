@@ -24,10 +24,6 @@ const getClassNameByValueType = (value: unknown) => {
   return valueTypeToClassNameMap[key];
 };
 
-const Key = ({ text }: { text: string }) => (
-  <div className="text-key">&quot;{text}&quot;:</div>
-);
-
 interface BlockProps {
   keyString: string;
   value: Record<string, unknown>;
@@ -41,7 +37,7 @@ interface InlineProps {
 export const InlineView = ({ keyString, value }: InlineProps) => {
   return (
     <div className="flex gap-2 items-start">
-      <Key text={keyString} />
+      <div className="text-key">&quot;{keyString}&quot;:</div>
       <div className={getClassNameByValueType(value)}>
         {typeof value === 'string' ? `"${value}"` : String(value)}
       </div>
@@ -57,12 +53,16 @@ export const BlockView = ({ keyString, value }: BlockProps) => {
     'flex items-start'
   );
 
-  const nestedClassName = cn(isExpanded ? 'block' : 'hidden', 'pl-5');
+  const nestedClassName = cn(
+    isExpanded ? 'block' : 'hidden',
+    'pl-5',
+    'border-l'
+  );
 
   return (
     <div className={rootClassName}>
       <div className="flex gap-2 items-center">
-        <Key text={keyString} />
+        <div className="text-key">&quot;{keyString}&quot;:</div>
         <p>{Array.isArray(value) ? '[' : '{'}</p>
         <OpenButton
           isExpanded={isExpanded}
