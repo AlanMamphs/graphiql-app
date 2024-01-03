@@ -61,11 +61,7 @@ const HighlightedText = ({ value }: { value: string }) => {
   );
 };
 
-interface Props {
-  onQueryChange: (text: string) => void;
-}
-
-export const Editor = ({ onQueryChange }: Props) => {
+export const Editor = () => {
   const ref = useRef<HTMLTextAreaElement | null>(null);
 
   // This state is being used by output box, updating by changes in textarea input.
@@ -73,7 +69,6 @@ export const Editor = ({ onQueryChange }: Props) => {
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
-    onQueryChange(event.target.value);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
