@@ -1,56 +1,66 @@
 import { useCallback } from 'react';
 import * as yup from 'yup';
 import YupPassword from 'yup-password';
+import { useLocale } from '@/context/Locale';
+
 YupPassword(yup);
 
-export const signUpDataSchema = yup.object().shape({
-  firstname: yup
-    .string()
-    .matches(
-      /^[A-Z][a-z]*$/,
-      'Firstname should start with an uppercase letter and should be valid'
-    )
-    .required('Firstname is required'),
-  lastname: yup
-    .string()
-    .matches(
-      /^[A-Z][a-z]*$/,
-      'Lastname should start with an uppercase letter and should be valid'
-    )
-    .required('Lastname is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
+export const useSignUpValidation = () => {
+  const {
+    state: {
+      strings: { schema: text },
+    },
+  } = useLocale();
 
-  password: yup
-    .string()
-    .password()
-    .min(8)
-    .minLowercase(1)
-    .minUppercase(1)
-    .minSymbols(1)
-    .minNumbers(1)
-    .required('Password is required'),
+  return yup.object().shape({
+    firstname: yup
+      .string()
+      .matches(/^[A-Z][a-z]*$/, text.firstname.matches)
+      .required(text.firstname.required),
+    lastname: yup
+      .string()
+      .matches(/^[A-Z][a-z]*$/, text.lastname.matches)
+      .required(text.lastname.required),
+    email: yup.string().email(text.email.email).required(text.email.required),
 
-  confirmPswd: yup
-    .string()
-    .oneOf([yup.ref('password'), 'null'], 'Passwords must match')
-    .required('Confirm password'),
-});
+    password: yup
+      .string()
+      .password()
+      .min(8)
+      .minLowercase(1)
+      .minUppercase(1)
+      .minSymbols(1)
+      .minNumbers(1)
+      .required(text.password.required),
 
-export type SignUpDataType = yup.InferType<typeof signUpDataSchema>;
+    confirmPswd: yup
+      .string()
+      .oneOf([yup.ref('password'), 'null'], text.password.match)
+      .required(text.password.confirm),
+  });
+};
 
-export const signInDataSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
+export type SignUpDataType = yup.InferType<
+  ReturnType<typeof useSignUpValidation>
+>;
 
-  password: yup.string().required('Password is required'),
-});
+export const useSignInValidation = () => {
+  const {
+    state: {
+      strings: { schema: text },
+    },
+  } = useLocale();
 
-export type SignInDataType = yup.InferType<typeof signInDataSchema>;
+  return yup.object().shape({
+    email: yup.string().email(text.email.email).required(text.email.required),
+
+    password: yup.string().required(text.password.required),
+  });
+};
+
+export type SignInDataType = yup.InferType<
+  ReturnType<typeof useSignInValidation>
+>;
 
 export const useYupValidationResolver = <T extends object>(
   validationSchema: yup.Schema

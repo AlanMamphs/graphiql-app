@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { InputField } from '@/components/ui/InputField';
 import { DangerAlert } from '@/components/ui/alert';
+import { useLocale } from '@/context/Locale';
 
 import {
-  signInDataSchema,
+  useSignInValidation,
   SignInDataType,
   useYupValidationResolver,
 } from './Schema';
@@ -15,7 +16,15 @@ export const SignInForm = (props: {
   onSubmit: (data: SignInDataType) => void;
   error?: string;
 }) => {
+  const {
+    state: {
+      strings: { signinform: text },
+    },
+  } = useLocale();
+
+  const signInDataSchema = useSignInValidation();
   const resolver = useYupValidationResolver(signInDataSchema);
+
   const {
     handleSubmit,
     register,
@@ -33,10 +42,10 @@ export const SignInForm = (props: {
         className="flex flex-col gap-4 w-full"
       >
         <h2 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">
-          Sign In
+          {text.sign_in}
         </h2>
         <InputField
-          label="Your e-mail"
+          label={text.your_email}
           id="email"
           data-testid="login-email"
           type="email"
@@ -45,7 +54,7 @@ export const SignInForm = (props: {
           error={errors.email?.message}
         />
         <InputField
-          label="Your password"
+          label={text.your_password}
           data-testid="login-password"
           id="password"
           type="password"
@@ -58,20 +67,20 @@ export const SignInForm = (props: {
           data-testid="login-submit-btn"
           type="submit"
         >
-          Submit
+          {text.submit}
         </Button>
       </form>
 
       {props.error && (
         <DangerAlert className="mt-3" data-testid="login-error">
-          <span className="font-medium">Auth Error!</span> {props.error}
+          <span className="font-medium">{text.auth_error} </span> {props.error}
         </DangerAlert>
       )}
       <GoogleAuthButton className="mt-3" />
       <p className="mt-4 dark:text-white">
-        Don&apos;have an account?{' '}
+        {text.dont_have}{' '}
         <Link href="/signup">
-          <span className="text-blue-600 hover:underline">Sign up</span>
+          <span className="text-blue-600 hover:underline">{text.sign_up}</span>
         </Link>
       </p>
     </div>

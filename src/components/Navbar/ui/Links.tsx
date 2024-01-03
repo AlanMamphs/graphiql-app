@@ -4,6 +4,8 @@ import { NavButton } from './Button';
 import { NavLink } from './Link';
 import { ReactNode } from 'react';
 import { ModeToggle } from '@/components/ThemeToggle';
+import { LocaleToggle } from '@/components/LocaleToggle';
+import { useLocale } from '@/context/Locale';
 
 interface Props {
   direction?: 'row' | 'col';
@@ -12,6 +14,11 @@ interface Props {
 
 const Links = ({ direction = 'row', className }: Props) => {
   const { status } = useSession();
+  const {
+    state: {
+      strings: { sign: text },
+    },
+  } = useLocale();
   const dir = {
     row: 'flex-row items-center',
     col: 'flex-col justify-center',
@@ -26,13 +33,14 @@ const Links = ({ direction = 'row', className }: Props) => {
 
         <NavLink href="/">
           <NavButton
-            text="Sign out"
+            text={text.sign_out}
             dataTestId="nav-signout-btn"
             onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
           />
         </NavLink>
 
         <ModeToggle />
+        <LocaleToggle />
       </div>
     );
   }
@@ -40,14 +48,15 @@ const Links = ({ direction = 'row', className }: Props) => {
   return (
     <div className={cn('flex', dir[direction], className)}>
       <NavLink href="/signin">
-        <NavButton text="Sign In" dataTestId="nav-signin-btn" />
+        <NavButton text={text.sign_in} dataTestId="nav-signin-btn" />
       </NavLink>
 
       <NavLink href="/signup">
-        <NavButton text="Sign Up" dataTestId="nav-signup-btn" />
+        <NavButton text={text.sign_up} dataTestId="nav-signup-btn" />
       </NavLink>
 
       <ModeToggle />
+      <LocaleToggle />
     </div>
   );
 };

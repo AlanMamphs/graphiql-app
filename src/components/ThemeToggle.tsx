@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
+import { useLocale } from '@/context/Locale';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -14,6 +15,11 @@ import {
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
+  const {
+    state: {
+      strings: { themetoggle: text },
+    },
+  } = useLocale();
 
   return (
     <DropdownMenu>
@@ -30,21 +36,21 @@ export function ModeToggle() {
           data-testid="theme-dropdown-links-light"
           onClick={() => setTheme('light')}
         >
-          Light
+          {text.light}
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
           data-testid="theme-dropdown-links-dark"
           onClick={() => setTheme('dark')}
         >
-          Dark
+          {text.dark}
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
           data-testid="theme-dropdown-links-system"
           onClick={() => setTheme('system')}
         >
-          System
+          {text.system}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
