@@ -54,6 +54,21 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        key: {
+          DEFAULT: 'hsl(var(--key-color))',
+        },
+        string: {
+          DEFAULT: 'hsl(var(--string-color))',
+        },
+        number: {
+          DEFAULT: 'hsl(var(--number-color))',
+        },
+        boolean: {
+          DEFAULT: 'hsl(var(--boolean-color))',
+        },
+        special: {
+          DEFAULT: 'hsl(var(--special-color))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
