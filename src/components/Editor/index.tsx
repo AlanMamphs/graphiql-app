@@ -101,10 +101,14 @@ export const Editor = () => {
 
   return (
     <div className="relative w-full h-full">
-      <pre className="absolute inset-0 text-blue w-full h-full">
+      <pre
+        data-testid="editor-output"
+        className="absolute inset-0 text-blue w-full h-full"
+      >
         <HighlightedText key={text} value={text || ''} />
       </pre>
       <textarea
+        data-testid="editor-input"
         ref={ref}
         onChange={handleChange}
         onKeyDown={onKeyDown}

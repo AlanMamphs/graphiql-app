@@ -30,7 +30,9 @@ type GIQLElements =
   | 'theme-dropdown-links-light'
   | 'theme-dropdown-links-dark'
   | 'theme-dropdown-links-system'
-  | 'nav-background';
+  | 'nav-background'
+  | 'editor-output'
+  | 'editor-input';
 
 export const giql = (name: GIQLElements) => {
   return cy.get(`[data-testid="${name}"]`);
