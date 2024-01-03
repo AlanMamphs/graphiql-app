@@ -87,7 +87,7 @@
   }
 }
 
-
 pre {
   word-break: break-all !important;
+  overflow-y: auto;
 }

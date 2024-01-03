@@ -12,7 +12,7 @@ const hightlightWithLineNumbers = (
   input: string,
   language = languages.graphql
 ) =>
-  highlight(input, language)
+  (highlight(input, language) as string)
     .split('\n')
     .map(
       (line, i) =>
@@ -24,25 +24,35 @@ const hightlightWithLineNumbers = (
 
 export const EditorComponent = ({
   code,
+  syntaxError,
   onCodeChange,
   className,
   language,
+  onBlur,
 }: {
   className?: string;
   code: string;
+  syntaxError?: string;
   onCodeChange: (code: string) => void;
+  onBlur: () => void;
   language?: string;
-}) => {
-  return (
+}) => (
+  <>
+    {syntaxError && (
+      <div className=" dark:bg-black bg-white z-10 sticky top-0 text-red-500">
+        {syntaxError}
+      </div>
+    )}
     <Editor
       value={code ?? ''}
       onValueChange={onCodeChange}
       highlight={(value) => hightlightWithLineNumbers(value, language)}
       padding={40}
-      className={cn(
-        'h-full p-l-16 dark:bg-blue-950 bg-slate-300 break-words break-all',
+      onBlur={onBlur}
+      textareaClassName={cn(
+        ' p-l-16 dark:bg-blue-950 bg-slate-300 break-words break-all',
         className
       )}
     />
-  );
-};
+  </>
+);
