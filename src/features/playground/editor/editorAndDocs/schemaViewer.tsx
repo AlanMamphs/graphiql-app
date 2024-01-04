@@ -1,6 +1,6 @@
 import { JsonViewer } from '@/components/JSONViewer';
 
-export const DocsViewer = ({
+export const SchemaViewer = ({
   resource,
 }: {
   resource: { read: () => Record<string, unknown> };
@@ -8,10 +8,13 @@ export const DocsViewer = ({
   const docs = resource.read();
 
   return (
-    <div className="h-[45vh] overflow-y-auto">
+    <div
+      data-testid="playground-schema-viewer"
+      className="h-[45vh] p-3 overflow-y-auto"
+    >
       <JsonViewer obj={docs ?? {}} />
     </div>
   );
 };
 
-export default DocsViewer;
+export default SchemaViewer;

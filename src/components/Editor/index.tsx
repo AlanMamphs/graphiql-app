@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { AllHTMLAttributes } from 'react';
 import Editor from 'react-simple-code-editor';
 // @ts-expect-error type doesn't exist
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-graphql';
 import 'prismjs/themes/prism.css';
-import { cn } from '@/lib/utils';
+import EditorContextMenu, { type EditorContextMenuItems } from './contextMenu';
 
 export { languages };
 
@@ -29,6 +29,8 @@ export const EditorComponent = ({
   className,
   language,
   onBlur,
+  contextMenuItems,
+  ...restProps
 }: {
   className?: string;
   code: string;
@@ -36,23 +38,26 @@ export const EditorComponent = ({
   onCodeChange: (code: string) => void;
   onBlur: () => void;
   language?: string;
-}) => (
-  <>
+  contextMenuItems: EditorContextMenuItems;
+} & AllHTMLAttributes<HTMLDivElement>) => (
+  <div {...restProps}>
     {syntaxError && (
       <div className=" dark:bg-black bg-white z-10 sticky top-0 text-red-500">
         {syntaxError}
       </div>
     )}
-    <Editor
-      value={code ?? ''}
-      onValueChange={onCodeChange}
-      highlight={(value) => hightlightWithLineNumbers(value, language)}
-      padding={40}
-      onBlur={onBlur}
-      textareaClassName={cn(
-        ' p-l-16 dark:bg-blue-950 bg-slate-300 break-words break-all',
-        className
-      )}
-    />
-  </>
+    <EditorContextMenu items={contextMenuItems}>
+      <div className={className}>
+        <Editor
+          value={code ?? ''}
+          onValueChange={onCodeChange}
+          highlight={(value) => hightlightWithLineNumbers(value, language)}
+          padding={40}
+          onBlur={onBlur}
+          className="flex-1"
+          textareaClassName=" p-l-16 dark:bg-blue-950 bg-slate-300 break-words break-all"
+        />
+      </div>
+    </EditorContextMenu>
+  </div>
 );

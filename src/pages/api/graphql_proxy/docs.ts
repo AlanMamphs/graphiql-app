@@ -25,7 +25,6 @@ const handler: NextApiHandler = async (req, res) => {
 
     res.status(response.status).json(schema.data);
   } catch (error) {
-    console.error('GraphQL Schema Proxy Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

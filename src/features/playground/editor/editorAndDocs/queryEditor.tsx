@@ -2,17 +2,23 @@ import { EditorComponent } from '@/components/Editor';
 import { useGQLContext } from '../../context';
 
 export const QueryEditor = () => {
-  const { query, setQuery, queryError, validateQuery } = useGQLContext();
+  const { query, setQuery, queryError, validateQuery, prettifyQuery } =
+    useGQLContext();
 
   return (
-    <div className=" h-[45vh] overflow-y-auto ">
-      <EditorComponent
-        syntaxError={queryError}
-        className="bg-gray w-full break-words flex-grow"
-        code={query}
-        onCodeChange={setQuery!}
-        onBlur={validateQuery!}
-      />
-    </div>
+    <EditorComponent
+      data-testid="playground-query-editor"
+      syntaxError={queryError}
+      className="h-[45vh] overflow-y-auto flex-grow"
+      code={query}
+      onCodeChange={setQuery!}
+      onBlur={validateQuery!}
+      contextMenuItems={[
+        {
+          text: 'Prettify',
+          action: prettifyQuery!,
+        },
+      ]}
+    />
   );
 };

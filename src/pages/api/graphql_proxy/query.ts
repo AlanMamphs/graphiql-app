@@ -4,8 +4,7 @@ const handler: NextApiHandler = async (req, res) => {
   const { body } = req;
 
   const { endpoint, query, variables = {}, headers = {} } = JSON.parse(body);
-  console.log('endpoint:', endpoint);
-  console.log('query:', query);
+
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -20,7 +19,6 @@ const handler: NextApiHandler = async (req, res) => {
 
     res.status(response.status).json(data);
   } catch (error) {
-    console.error('GraphQL Proxy Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

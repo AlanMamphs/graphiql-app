@@ -11,12 +11,8 @@ const Main = () => {
     >
       <div className="grid">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-3">
-          <div className="min-h-[40vh] text-left">
-            <Editor />
-          </div>
-          <div className="h-full text-left">
-            <QueryViewer />
-          </div>
+          <Editor />
+          <QueryViewer />
         </div>
       </div>
     </div>

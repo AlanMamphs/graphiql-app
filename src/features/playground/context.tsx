@@ -1,11 +1,5 @@
 import apiClient from '@/lib/apiClient';
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import { PropsWithChildren, createContext, useContext, useState } from 'react';
 
 import { GraphQLError, parse } from 'graphql';
 
@@ -14,17 +8,20 @@ type GraphQLContext = {
   setHeaders?: (h: string) => void;
   headersError?: string;
   validateHeaders?: () => void;
+  prettifyHeaders?: () => void;
   variables: string;
   setVariables?: (h: string) => void;
   variablesError?: string;
   validateVariables?: () => void;
+  prettifyVariables?: () => void;
   docs?: Record<string, unknown>;
-  fetchDocs: () => void;
+  fetchDocs?: () => void;
   query: string;
-  runQuery: () => void;
+  runQuery?: () => void;
   setQuery?: (q: string) => void;
   queryError?: string;
   validateQuery?: () => void;
+  prettifyQuery?: () => void;
   results?: Record<string, unknown>;
   endpoint: string;
   setEndpoint?: (e: string) => void;
@@ -35,12 +32,6 @@ export const GraphQLContext = createContext<GraphQLContext>({
   query: '',
   variables: '',
   endpoint: '',
-  fetchDocs: () => {
-    throw new Error('Not implemented');
-  },
-  runQuery: () => {
-    throw new Error('Not implemented');
-  },
 });
 
 export const GraphQLProvider = (props: PropsWithChildren) => {
@@ -59,10 +50,10 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
   const [docs, setDocs] = useState({});
   const [results, setResults] = useState({});
 
-  const fetchDocs = useCallback(async () => {
+  const fetchDocs = async () => {
     setDocs(await apiClient.fetchDocs(endpoint));
     await new Promise<string>((r) => setTimeout(r, 10000));
-  }, [endpoint]);
+  };
 
   const runQuery = async () => {
     validateQuery();
@@ -72,14 +63,20 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     if (queryError || headersError || variablesError) {
       return;
     }
-    setResults(
-      await apiClient.runQuery({
+
+    try {
+      const results = await apiClient.runQuery({
         query,
         endpoint,
         headers: JSON.parse(headers.trim() || '{}'),
         variables: JSON.parse(variables.trim() || '{}'),
-      })
-    );
+      });
+      setResults(results);
+    } catch (e) {
+      setResults({
+        message: (e as Error).message,
+      });
+    }
   };
 
   const validateQuery = () => {
@@ -125,6 +122,65 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     }
   };
 
+  const __prettifyJSON = (json: string) => {
+    let prettifiedJson = json.trim().replaceAll("'", '"');
+    try {
+      prettifiedJson = JSON.stringify(JSON.parse(prettifiedJson), null, 2);
+      return prettifiedJson;
+    } catch (e) {
+      // Return at least trimmed version
+      return prettifiedJson;
+    }
+  };
+
+  const prettifyHeaders = () => {
+    setHeaders(__prettifyJSON(headers));
+    validateHeaders();
+  };
+
+  const prettifyVariables = () => {
+    setVariables(__prettifyJSON(variables));
+    validateVariables();
+  };
+
+  const prettifyQuery = () => {
+    const trimmed = query.replace(/\s+/g, ' ').trim();
+    const separatedLines: string[] = [];
+    let identationLevel = '';
+    let currentLine = '';
+    let prevChar = '';
+
+    for (const char of trimmed) {
+      if (char === '{' || char === '(') {
+        separatedLines.push(identationLevel + currentLine + char);
+        identationLevel += '  ';
+        currentLine = '';
+      } else if (char === '}' || char === ')') {
+        separatedLines.push(identationLevel + currentLine);
+        identationLevel = identationLevel.slice(0, -2);
+        separatedLines.push(identationLevel + char);
+        currentLine = '';
+      } else if (
+        prevChar !== ':' &&
+        char === ' ' &&
+        identationLevel.length >= 4 &&
+        !Boolean(currentLine.trim() === '')
+      ) {
+        separatedLines.push(identationLevel + currentLine.trim());
+        currentLine = '';
+      } else {
+        currentLine += char;
+      }
+      prevChar = char;
+    }
+
+    // If there is any remaining content, add it to the result
+    if (currentLine.trim() !== '') {
+      separatedLines.push(currentLine);
+    }
+    setQuery(separatedLines.filter((s) => s.trim() !== '').join('\n'));
+  };
+
   return (
     <GraphQLContext.Provider
       value={{
@@ -133,16 +189,19 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
         runQuery,
         queryError,
         validateQuery,
+        prettifyQuery,
         docs,
         fetchDocs,
         headers,
         setHeaders,
         headersError,
         validateHeaders,
+        prettifyHeaders,
         variables,
         setVariables,
         variablesError,
         validateVariables,
+        prettifyVariables,
         results,
         endpoint,
         setEndpoint,

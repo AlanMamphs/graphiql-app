@@ -13,7 +13,7 @@ export const QueryEndpoint = () => {
     variablesError,
   } = useGQLContext();
   return (
-    <div>
+    <div data-testid="playground-query-endpoint">
       <fieldset className="flex">
         <Input
           className="mb-3 mr-3"
@@ -21,6 +21,7 @@ export const QueryEndpoint = () => {
           defaultValue={endpoint}
         />
         <Button
+          data-testid="playground-run-query"
           className="mx-3"
           disabled={Boolean(
             !query || queryError || headersError || variablesError
