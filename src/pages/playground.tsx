@@ -1,37 +1,20 @@
-import { JsonViewer } from '@/components/JSONViewer';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
-
-const obj = {
-  string: 'This is a string',
-  number: 42,
-  boolean: true,
-  nullValue: null,
-  undefinedValue: undefined,
-  array: ['element1', 'element2'],
-  object: {
-    key: 'value',
-    value: {
-      object1: { key: 'value' },
-      array2: ['element1', 'element2'],
-      undefinedValue3: undefined,
-      nullValue4: null,
-      boolean5: true,
-      number6: 42,
-      string7: 'This is a string',
-    },
-  },
-};
+import { Editor } from '@/features/playground/editor';
+import { QueryViewer } from '@/features/playground/queryViewer';
 
 const Main = () => {
-  const validatedObject = JSON.parse(JSON.stringify(obj));
-
   return (
     <div
       data-testid="main-page"
-      className="text-center bg-gray-50 my-2 mx-2 py-2 px-2 dark:bg-gray-900"
+      className="text-center bg-gray-50 my-10 dark:bg-gray-900 w-full"
     >
-      <JsonViewer obj={validatedObject} />
+      <div className="grid">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-3">
+          <Editor />
+          <QueryViewer />
+        </div>
+      </div>
     </div>
   );
 };
@@ -46,9 +29,7 @@ export async function getServerSideProps(context: NextPageContext) {
     };
   }
   return {
-    props: {
-      session: session,
-    },
+    props: {},
   };
 }
 

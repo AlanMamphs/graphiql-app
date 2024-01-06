@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from '@/providers/theme';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { LocaleProvider } from '@/context/Locale';
+import { GraphQLProvider } from '@/features/playground/context';
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -18,11 +19,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           disableTransitionOnChange
         >
           <LocaleProvider>
-            <RootLayout>
-              <ErrorBoundary>
-                <Component {...pageProps} />
-              </ErrorBoundary>
-            </RootLayout>
+            <GraphQLProvider>
+              <RootLayout>
+                <ErrorBoundary>
+                  <Component {...pageProps} />
+                </ErrorBoundary>
+              </RootLayout>
+            </GraphQLProvider>
           </LocaleProvider>
         </ThemeProvider>
       </SessionProvider>

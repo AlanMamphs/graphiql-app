@@ -1,6 +1,6 @@
 {
   "main": {
-    "go_home": "Go Home",
+    "go_home": "Home",
     "welcome_to": "Welcome to the GraphiQL",
     "description_header": " GraphiQL is a playground/IDE for graphQL requests. This project is part of Rolling Scopes School React Course. The Rolling Scopes is an independent international community of developers (mainly JavaScript / Front-end / iOS / Android), organized in 2013. Currently, many developers around the world know that we participate in our events and activities. You can find task description and requirements",
     "here_link": "here"
