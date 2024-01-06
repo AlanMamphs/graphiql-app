@@ -24,7 +24,7 @@ const Brand = () => {
         <Image alt="Logo" src="/favicon.png" fill />
       </m.div>
 
-      <NavButton text="GraphiQL Editor" />
+      <NavButton text="GraphiQL" />
     </Link>
   );
 };
