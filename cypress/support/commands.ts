@@ -23,6 +23,15 @@ type GIQLElements =
   | 'login-error'
   | 'password-strength-text'
   | 'main-page'
+  | 'playground-editor-and-schema'
+  | 'playground-query-editor'
+  | 'playground-query-endpoint'
+  | 'playground-schema-viewer'
+  | 'playground-headers-editor'
+  | 'playground-variables-editor'
+  | 'playground-query-results'
+  | 'playground-run-query'
+  | 'playground-context-menu'
   | 'not-found-page'
   | 'server-error-page'
   | 'theme-dropdown'
@@ -70,6 +79,7 @@ Cypress.Commands.addAll(commands);
 export type CommandsTypes = typeof commands;
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable extends CommandsTypes {}
   }

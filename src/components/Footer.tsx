@@ -54,7 +54,7 @@ const FooterGithubLink = (props: { name: string; link: string }) => (
 );
 
 export const FooterComponent = () => (
-  <div className="flex p-4 text-center justify-between sm:justify-between">
+  <footer className="flex p-4 text-center justify-between sm:justify-between">
     <Link href="https://rs.school" className="w-24 h-5">
       <RsSchoolIcon />
     </Link>
@@ -73,5 +73,5 @@ export const FooterComponent = () => (
         link="https://github.com/formant56"
       />
     </div>
-  </div>
+  </footer>
 );
