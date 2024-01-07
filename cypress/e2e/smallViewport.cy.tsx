@@ -19,6 +19,8 @@ it('Renders correctly on small viewport', () => {
 
   cy.url().should('include', '/signin');
 
+  cy.giql('login-signin-form').should('be.visible');
+
   cy.assertMissingHorizontalScroll();
   cy.login();
 

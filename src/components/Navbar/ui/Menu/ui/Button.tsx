@@ -12,7 +12,7 @@ interface Props {
 export const MenuButton = ({ stage = 'open', onClick }: Props) => {
   return (
     <m.div
-      className="absolute top-3 right-4 font-bold h-10 text-center px-3 py-1 z-20 border rounded dark:border-gray-700 dark:bg-gray-800"
+      className="absolute top-3 right-4 font-bold h-10 text-center px-3 py-2 z-20 border rounded dark:border-gray-700 dark:bg-gray-800"
       animate={stage}
       onClick={onClick}
     >

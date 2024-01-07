@@ -78,6 +78,7 @@ export const login = (props?: {
 };
 
 export const assertMissingHorizontalScroll = () => {
+  cy.wait(1000);
   cy.window().then((win) => {
     const htmlWidth = Cypress.$('html')[0].scrollWidth;
     const scrollBarWidth = win.innerWidth - htmlWidth;
