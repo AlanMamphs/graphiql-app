@@ -7,7 +7,9 @@ export const GoogleAuthButton = (props: ButtonProps) => {
   const { state } = useLocale();
   return (
     <Button
-      onClick={() => signIn('google', { redirect: true, callbackUrl: '/' })}
+      onClick={() =>
+        signIn('google', { redirect: true, callbackUrl: '/playground' })
+      }
       variant="outline"
       {...props}
     >
