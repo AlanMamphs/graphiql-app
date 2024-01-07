@@ -1,0 +1,11 @@
+{
+  "all": true,
+  "include": ["src/**"],
+  "exclude": [
+    "src/**/index.ts",
+    "src/pages/_document.tsx",
+    "src/pages/api/**",
+    "src/styles/**",
+    "src/firebase/**"
+  ]
+}
