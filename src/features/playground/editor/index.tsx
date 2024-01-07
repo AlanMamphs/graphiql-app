@@ -17,21 +17,21 @@ export const Editor = () => {
           <Collapsible.Trigger asChild>
             {open ? (
               <Button
-                data-testid="playground-run-query"
-                className="mx-3"
-                variant="outline"
-                title="Show headers and variables"
-              >
-                <Eye />
-              </Button>
-            ) : (
-              <Button
-                data-testid="playground-run-query"
+                data-testid="playground-hide-h-and-v"
                 className="mx-3"
                 variant="outline"
                 title="Hide headers and variables"
               >
                 <EyeOff />
+              </Button>
+            ) : (
+              <Button
+                data-testid="playground-show-h-and-v"
+                className="mx-3"
+                variant="outline"
+                title="Show headers and variables"
+              >
+                <Eye />
               </Button>
             )}
           </Collapsible.Trigger>

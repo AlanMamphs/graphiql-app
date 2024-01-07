@@ -25,7 +25,6 @@ const Signin = () => {
     if (error === 'auth/invalid-credential') return signinform.invalid_creds;
     if (error === 'SessionRequired') return signinform.session_expired;
 
-
     return error;
   };
   const handleSignIn = async (data: SignInDataType) => {

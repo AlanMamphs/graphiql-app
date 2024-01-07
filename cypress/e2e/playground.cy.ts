@@ -13,6 +13,8 @@ it('Playground page', () => {
   cy.visit('/');
   cy.login();
   cy.location('pathname').should('eq', '/playground');
+  cy.giql('playground-show-h-and-v').click();
+
   cy.giql('playground-editor-and-schema').should('be.visible');
   // Query and Variables editors are not default tabs
   cy.giql('playground-query-editor').should('not.exist');
@@ -42,6 +44,7 @@ it('Playground page', () => {
 
   // Enter query
 
+  cy.giql('playground-hide-h-and-v').click();
   cy.giql('playground-query-editor').within(() => {
     cy.get('textarea')
       .type(validQuery, { parseSpecialCharSequences: false })
@@ -96,6 +99,8 @@ it('Playground page', () => {
     'Variable "$characterId" of required type "ID!" was not provided.'
   );
 
+  cy.giql('playground-show-h-and-v').click();
+  cy.contains('Variables').click();
   cy.giql('playground-variables-editor').within(() => {
     cy.get('textarea')
       .type('{ "characterId": "1" }', { parseSpecialCharSequences: false })

@@ -36,6 +36,8 @@ type GIQLElements =
   | 'playground-run-query'
   | 'playground-context-menu'
   | 'playground-error-toast'
+  | 'playground-hide-h-and-v'
+  | 'playground-show-h-and-v'
   | 'not-found-page'
   | 'server-error-page'
   | 'theme-dropdown'

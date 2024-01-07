@@ -38,7 +38,9 @@ export const EditorAndDocs = (props: { isHeadersAndVarsVisible: boolean }) => {
         </Tabs.List>
         <Tabs.Content value="editor">
           <QueryEditor
-            className={props.isHeadersAndVarsVisible ? 'h-[24.9vh]' : 'h-[68.6vh]'}
+            className={
+              props.isHeadersAndVarsVisible ? 'h-[24.9vh]' : 'h-[68.6vh]'
+            }
           />
         </Tabs.Content>
         <Tabs.Content value="docs">

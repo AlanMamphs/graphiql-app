@@ -11,10 +11,13 @@ it('Localization toggler should work', () => {
   cy.contains('Регистрация');
 
   cy.login();
+
   cy.contains('Песочница');
   cy.contains('Выход');
   cy.contains('Запрос');
   cy.contains('Схема');
+
+  cy.giql('playground-show-h-and-v').click();
   cy.contains('Заголовки');
   cy.contains('Переменные');
   cy.contains("Поторопитесь! Добавьте запрос и жмите 'Запрос'");
