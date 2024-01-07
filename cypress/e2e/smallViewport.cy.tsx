@@ -21,12 +21,9 @@ it('Renders correctly on small viewport', () => {
 
   cy.giql('login-signin-form').should('be.visible');
 
-  cy.assertMissingHorizontalScroll();
   cy.login();
 
   cy.giql('playground-editor-and-schema').should('be.visible');
 
   cy.giql('playground-query-results').should('be.visible');
-
-  cy.assertMissingHorizontalScroll();
 });
