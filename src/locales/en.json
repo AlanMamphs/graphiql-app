@@ -38,7 +38,8 @@
     "auth_error": "Auth Error!",
     "dont_have": "Don't have an account?",
     "sign_up": "Sign up",
-    "invalid_creds": "Invalid email or password"
+    "invalid_creds": "Invalid email or password",
+    "session_expired": "Session has expired. Relogin to continue"
   },
   "signupform": {
     "sign_up": "Sign Up",

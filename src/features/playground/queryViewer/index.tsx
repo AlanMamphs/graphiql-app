@@ -14,7 +14,7 @@ export const QueryViewer = () => {
   return (
     <div
       data-testid="playground-query-results"
-      className="min-h-[45vh] h-[87vh] overflow-y-auto shadow-2xl"
+      className="min-h-[45vh] h-[84vh] overflow-y-auto shadow-md"
     >
       {results && !resultsLoading ? (
         <JsonViewer obj={results} />

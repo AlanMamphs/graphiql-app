@@ -39,6 +39,7 @@ export interface LocalizedStrings {
     dont_have: string;
     sign_up: string;
     invalid_creds: string;
+    session_expired: string;
   };
   signupform: {
     sign_up: string;

@@ -1,9 +1,9 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useGQLContext } from '../../context';
-import { useLocale } from '@/context/Locale';
-
-export const QueryEndpoint = () => {
+import { useGQLContext } from '../context';
+import { PropsWithChildren } from 'react';
+import { Play } from 'lucide-react';
+export const ActionsBar = (props: PropsWithChildren) => {
   const {
     query,
     endpoint,
@@ -14,12 +14,6 @@ export const QueryEndpoint = () => {
     variablesError,
   } = useGQLContext();
 
-  const {
-    state: {
-      strings: { main },
-    },
-  } = useLocale();
-
   return (
     <div data-testid="playground-query-endpoint">
       <fieldset className="flex">
@@ -28,16 +22,18 @@ export const QueryEndpoint = () => {
           onBlur={(e) => setEndpoint?.(e.target?.value as string)}
           defaultValue={endpoint}
         />
+        {props.children}
         <Button
           data-testid="playground-run-query"
           className="mx-3"
+          variant="outline"
           disabled={Boolean(
             !query || queryError || headersError || variablesError
           )}
           onClick={runQuery}
           title={queryError || headersError || variablesError}
         >
-          {main.query}
+          <Play />
         </Button>
       </fieldset>
     </div>

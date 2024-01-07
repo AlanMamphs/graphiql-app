@@ -25,7 +25,7 @@ export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   }, [region]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-w-[320px]">
       <NavbarComponent />
       <main id="main-content" className="h-full w-full overflow-y-auto">
         {children}

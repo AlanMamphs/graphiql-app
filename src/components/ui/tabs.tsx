@@ -8,7 +8,7 @@ export const Root = ({
   ...restProps
 }: PropsWithChildren<Tabs.TabsProps>) => (
   <Tabs.Root
-    className={cn('flex flex-col shadow-2xl w-full', className)}
+    className={cn('flex flex-col shadow-md w-full', className)}
     {...restProps}
   >
     {children}
@@ -32,7 +32,7 @@ export const Trigger = ({
 }: PropsWithChildren<Tabs.TabsTriggerProps>) => (
   <Tabs.Trigger
     className={cn(
-      'px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-black dark:text-slate-100 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:font-bold data-[state=active]:relative data-[state=active]:shadow-[0_0_0_2px] data-[state=active]:shadow-black data-[state=active]:dark:shadow-white  outline-none cursor-default',
+      'transition-all px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-black dark:text-slate-100 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:font-bold data-[state=active]:relative data-[state=active]:shadow-[0_0_0_2px] data-[state=active]:shadow-black data-[state=active]:dark:shadow-white  outline-none cursor-default',
       className
     )}
     {...restProps}

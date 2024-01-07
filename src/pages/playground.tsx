@@ -1,9 +1,13 @@
 import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { Editor } from '@/features/playground/editor';
 import { QueryViewer } from '@/features/playground/queryViewer';
 
 const Main = () => {
+  useSession({
+    required: true,
+  });
+
   return (
     <div
       data-testid="main-page"
@@ -29,7 +33,9 @@ export async function getServerSideProps(context: NextPageContext) {
     };
   }
   return {
-    props: {},
+    props: {
+      session,
+    },
   };
 }
 

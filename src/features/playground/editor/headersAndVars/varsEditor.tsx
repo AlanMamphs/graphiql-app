@@ -20,7 +20,7 @@ export const VarsEditor = () => {
   return (
     <EditorComponent
       data-testid="playground-variables-editor"
-      className="h-[15vh] overflow-auto relative flex-grow"
+      className="h-[35vh] overflow-auto relative flex-grow"
       syntaxError={variablesError}
       onBlur={validateVariables!}
       code={variables}

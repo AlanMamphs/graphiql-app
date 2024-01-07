@@ -20,7 +20,7 @@ export const HeaderEditor = () => {
   return (
     <EditorComponent
       data-testid="playground-headers-editor"
-      className="h-[15vh] overflow-auto relative flex-grow"
+      className="h-[35vh] overflow-auto transition-all relative flex-grow"
       syntaxError={headersError}
       onBlur={validateHeaders!}
       code={headers}
