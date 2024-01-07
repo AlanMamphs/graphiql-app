@@ -1,11 +1,9 @@
 class ApiClient {
   async fetchDocs(endpoint: string) {
-    const response = await fetch('/api/graphql_proxy/docs', {
+    return fetch('/api/graphql_proxy/docs', {
       method: 'POST',
       body: JSON.stringify({ endpoint }),
     });
-
-    return response.json();
   }
 
   async runQuery({
@@ -19,7 +17,7 @@ class ApiClient {
     headers: object;
     variables: object;
   }) {
-    const response = await fetch('/api/graphql_proxy/query', {
+    return fetch('/api/graphql_proxy/query', {
       method: 'POST',
       body: JSON.stringify({
         query,
@@ -28,7 +26,6 @@ class ApiClient {
         variables,
       }),
     });
-    return response.json();
   }
 }
 

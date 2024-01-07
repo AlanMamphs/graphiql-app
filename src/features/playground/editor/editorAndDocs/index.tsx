@@ -11,7 +11,7 @@ import { useLocale } from '@/context/Locale';
 
 const DocsViewer = lazy(() => import('./schemaViewer'));
 const docsResource = (endpoint: string) =>
-  wrapPromise(apiClient.fetchDocs(endpoint));
+  wrapPromise(apiClient.fetchDocs(endpoint).then((r) => r.json()));
 
 export const EditorAndDocs = () => {
   const [mounted, setMounted] = useState(false);

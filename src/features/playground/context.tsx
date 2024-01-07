@@ -57,9 +57,42 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
   const [resultsError, setResultsError] = useState<string>();
   const [errorToastOpen, setErrorToastOpen] = useState<boolean>(false);
 
+  const toastifyResponse = (status: number) => {
+    if (status >= 400) {
+      if (status === 401) {
+        setResultsError(
+          'Unauthenticated request. You need to provide Authorization headers.'
+        );
+      }
+      if (status === 403) {
+        setResultsError(
+          'Forbidden request. You are not authorized to perform this action.'
+        );
+      }
+      if (status === 404) {
+        setResultsError('Resource not found.');
+      }
+      if (status === 500) {
+        setResultsError('Internal server error.');
+      }
+      setErrorToastOpen(true);
+    }
+  };
   const fetchDocs = async () => {
-    setDocs(await apiClient.fetchDocs(endpoint));
-    await new Promise<string>((r) => setTimeout(r, 10000));
+    try {
+      const response = await apiClient.fetchDocs(endpoint);
+      toastifyResponse(response.status);
+      debugger;
+      setDocs(await response.json());
+    } catch (e) {
+      setResults({
+        message: (e as Error).message,
+      });
+      setResultsError((e as Error).message);
+      setErrorToastOpen(true);
+    } finally {
+      setResultsLoading(false);
+    }
   };
 
   const runQuery = async () => {
@@ -80,16 +113,9 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
         variables: JSON.parse(variables.trim() || '{}'),
       });
 
-      setResults(response);
+      toastifyResponse(response.status);
 
-      if (response.errors) {
-        setResultsError(
-          response.errors.map((e: { message: string }) => e.message).join('\n')
-        );
-        setErrorToastOpen(true);
-      } else {
-        setResultsError(undefined);
-      }
+      setResults(await response.json());
     } catch (e) {
       setResults({
         message: (e as Error).message,

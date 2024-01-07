@@ -6,7 +6,6 @@ const nextConfig = {
     forceSwcTransforms: process.env.NODE_ENV !== 'test',
   },
   compiler: {
-    removeConsole: true,
     reactRemoveProperties: process.env.NODE_ENV === 'production',
   },
 };
