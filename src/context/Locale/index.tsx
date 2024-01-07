@@ -16,11 +16,11 @@ export type Action = ChangeLocaleAction;
 
 interface LocaleContextValue {
   state: ILocaleState;
-  dispatch: React.Dispatch<Action>;
+  handleRegionChange: (region: string) => void;
 }
 
 const initialState = {
-  region: REGIONS.EN,
+  region: REGIONS.UNSET,
   strings: LOCALE_STRINGS[REGIONS.EN],
 };
 
@@ -47,8 +47,18 @@ interface LocaleProviderProps {
 export const LocaleProvider: React.FC<LocaleProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleRegionChange = (region: string) => {
+    const action: Action = {
+      type: 'CHANGE_LOCALE',
+      payload: {
+        region: region,
+      },
+    };
+    dispatch(action);
+  };
+
   return (
-    <LocaleContext.Provider value={{ state, dispatch }}>
+    <LocaleContext.Provider value={{ state, handleRegionChange }}>
       {children}
     </LocaleContext.Provider>
   );

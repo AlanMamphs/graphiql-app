@@ -9,7 +9,10 @@ export const Menu = () => {
   const handleFlag = stage === 'closed' ? onOpen : onClose;
 
   return (
-    <m.div className="cursor-pointer" data-testid="nav-secondary-menu-btn">
+    <m.div
+      className="cursor-pointer block sm:hidden"
+      data-testid="nav-secondary-menu-btn"
+    >
       <MenuButton onClick={handleFlag} stage={stage} />
       <MenuContent onClick={onClose} stage={stage} />
     </m.div>

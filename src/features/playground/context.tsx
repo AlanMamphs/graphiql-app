@@ -23,6 +23,10 @@ type GraphQLContext = {
   validateQuery?: () => void;
   prettifyQuery?: () => void;
   results?: Record<string, unknown>;
+  resultsError?: string;
+  resultsLoading?: boolean;
+  errorToastOpen?: boolean;
+  setErrorToastOpen?: (a: boolean) => void;
   endpoint: string;
   setEndpoint?: (e: string) => void;
 };
@@ -48,7 +52,10 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     'https://rickandmortyapi.com/graphql'
   );
   const [docs, setDocs] = useState({});
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState<Record<string, unknown>>();
+  const [resultsLoading, setResultsLoading] = useState<boolean>(false);
+  const [resultsError, setResultsError] = useState<string>();
+  const [errorToastOpen, setErrorToastOpen] = useState<boolean>(false);
 
   const fetchDocs = async () => {
     setDocs(await apiClient.fetchDocs(endpoint));
@@ -65,17 +72,32 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     }
 
     try {
-      const results = await apiClient.runQuery({
+      setResultsLoading(true);
+      const response = await apiClient.runQuery({
         query,
         endpoint,
         headers: JSON.parse(headers.trim() || '{}'),
         variables: JSON.parse(variables.trim() || '{}'),
       });
-      setResults(results);
+
+      setResults(response);
+
+      if (response.errors) {
+        setResultsError(
+          response.errors.map((e: { message: string }) => e.message).join('\n')
+        );
+        setErrorToastOpen(true);
+      } else {
+        setResultsError(undefined);
+      }
     } catch (e) {
       setResults({
         message: (e as Error).message,
       });
+      setResultsError((e as Error).message);
+      setErrorToastOpen(true);
+    } finally {
+      setResultsLoading(false);
     }
   };
 
@@ -203,6 +225,10 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
         validateVariables,
         prettifyVariables,
         results,
+        resultsError,
+        resultsLoading,
+        errorToastOpen,
+        setErrorToastOpen,
         endpoint,
         setEndpoint,
       }}

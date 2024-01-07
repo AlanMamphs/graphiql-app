@@ -7,10 +7,7 @@ it('Expect Sign In to fail with human readable error', () => {
   cy.login({ password: 'wrong password', expectFailure: true });
 
   cy.giql('login-error').should('be.visible');
-  cy.giql('login-error').should(
-    'contain.text',
-    'Auth Error! Invalid email or password'
-  );
+  cy.giql('login-error').should('contain.text', 'Invalid email or password');
 });
 
 it('Expect to show field error if non-email input is provided', () => {
@@ -29,17 +26,11 @@ it('Expect to show field error if non-email input is provided', () => {
 it('Expect to show error provided via error query', () => {
   cy.visit('/signin?error=auth/invalid-credential');
   cy.giql('login-error').should('be.visible');
-  cy.giql('login-error').should(
-    'contain.text',
-    'Auth Error! Invalid email or password'
-  );
+  cy.giql('login-error').should('contain.text', 'Invalid email or password');
 
   cy.visit('/signin?error=auth/unknow error');
   cy.giql('login-error').should('be.visible');
-  cy.giql('login-error').should(
-    'contain.text',
-    'Auth Error! auth/unknow error'
-  );
+  cy.giql('login-error').should('contain.text', 'auth/unknow error');
 });
 
 it('Expect Sign In Page to redirect authenticated user to main page and logout to welcome page', () => {

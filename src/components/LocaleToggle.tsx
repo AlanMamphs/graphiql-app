@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useLocale, Action } from '@/context/Locale';
+import { useLocale } from '@/context/Locale';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,36 +12,29 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function LocaleToggle() {
-  const { state, dispatch } = useLocale();
-
-  const handleRegionChange = (region: string) => {
-    const action: Action = {
-      type: 'CHANGE_LOCALE',
-      payload: {
-        region: region,
-      },
-    };
-    dispatch(action);
-  };
+  const { state, handleRegionChange } = useLocale();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild data-testid="locale-dropdown">
-        <Button variant="outline" size="icon">
+      <DropdownMenuTrigger asChild data-testid="localization-dropdown">
+        <Button variant="outline" size="icon" className="mx-1">
           {state.region}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" data-testid="locale-dropdown-links">
+      <DropdownMenuContent
+        align="end"
+        data-testid="localization-dropdown-links"
+      >
         <DropdownMenuItem
           className="cursor-pointer"
-          data-testid="locale-dropdown-links-EN"
+          data-testid="localization-dropdown-en"
           onClick={() => handleRegionChange('EN')}
         >
           EN
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
-          data-testid="locale-dropdown-links-RU"
+          data-testid="localization-dropdown-ru"
           onClick={() => handleRegionChange('RU')}
         >
           RU

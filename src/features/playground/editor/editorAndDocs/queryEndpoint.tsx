@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useGQLContext } from '../../context';
+import { useLocale } from '@/context/Locale';
 
 export const QueryEndpoint = () => {
   const {
@@ -12,6 +13,13 @@ export const QueryEndpoint = () => {
     headersError,
     variablesError,
   } = useGQLContext();
+
+  const {
+    state: {
+      strings: { main },
+    },
+  } = useLocale();
+
   return (
     <div data-testid="playground-query-endpoint">
       <fieldset className="flex">
@@ -29,7 +37,7 @@ export const QueryEndpoint = () => {
           onClick={runQuery}
           title={queryError || headersError || variablesError}
         >
-          Query
+          {main.query}
         </Button>
       </fieldset>
     </div>

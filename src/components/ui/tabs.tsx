@@ -8,7 +8,7 @@ export const Root = ({
   ...restProps
 }: PropsWithChildren<Tabs.TabsProps>) => (
   <Tabs.Root
-    className={cn('flex flex-col shadow-[0_2px_10px] w-full', className)}
+    className={cn('flex flex-col shadow-2xl w-full', className)}
     {...restProps}
   >
     {children}

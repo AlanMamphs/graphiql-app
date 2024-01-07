@@ -7,7 +7,7 @@ const Main = () => {
   return (
     <div
       data-testid="main-page"
-      className="text-center bg-gray-50 my-10 dark:bg-gray-900 w-full"
+      className="text-center bg-gray-50 my-10 dark:bg-gray-700 w-full"
     >
       <div className="grid">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-3">

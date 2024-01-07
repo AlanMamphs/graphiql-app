@@ -58,6 +58,7 @@ export const FooterComponent = () => (
     <Link href="https://rs.school" className="w-24 h-5 items-center">
       <RsSchoolIcon />
     </Link>
+    <div>© The IT Crowd Team, 2024</div>
     <div
       data-testid="footer-github-names"
       className="flex sm:flex-row flex-col items-center gap-2"

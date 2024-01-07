@@ -75,10 +75,11 @@ it('Playground page', () => {
   });
 
   cy.giql('playground-run-query').should('be.enabled').click();
-
   cy.contains(
     'Syntax Error: Unexpected Name "Query". At position: line - 1, column - 1'
   ).should('be.visible');
+
+  cy.contains('GraphiQL error');
 
   cy.giql('playground-run-query').should('be.disabled');
 

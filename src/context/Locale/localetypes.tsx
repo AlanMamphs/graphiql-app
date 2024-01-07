@@ -9,6 +9,15 @@ export interface LocalizedStrings {
     welcome_to: string;
     description_header: string;
     here_link: string;
+    playground: string;
+    schema: string;
+    query_editor: string;
+    headers: string;
+    variables: string;
+    query: string;
+    format: string;
+    start_querying: string;
+    loading: string;
   };
   error: {
     message404: string;
@@ -29,6 +38,7 @@ export interface LocalizedStrings {
     auth_error: string;
     dont_have: string;
     sign_up: string;
+    invalid_creds: string;
   };
   signupform: {
     sign_up: string;
@@ -41,6 +51,7 @@ export interface LocalizedStrings {
     auth_error: string;
     already_have: string;
     sign_in: string;
+    email_error: string;
   };
   googleauthbutton: {
     sign: string;

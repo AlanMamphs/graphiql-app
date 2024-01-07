@@ -7,6 +7,9 @@ type GIQLElements =
   | 'nav-signout-btn'
   | 'nav-main-btn'
   | 'nav-light-dark-theme'
+  | 'nav-menu-hamburger'
+  | 'nav-menu-close'
+  | 'nav-secondary-menu-links'
   | 'welcome-banner'
   | 'welcome-signin-btn'
   | 'welcome-signup-btn'
@@ -32,6 +35,7 @@ type GIQLElements =
   | 'playground-query-results'
   | 'playground-run-query'
   | 'playground-context-menu'
+  | 'playground-error-toast'
   | 'not-found-page'
   | 'server-error-page'
   | 'theme-dropdown'
@@ -39,6 +43,10 @@ type GIQLElements =
   | 'theme-dropdown-links-light'
   | 'theme-dropdown-links-dark'
   | 'theme-dropdown-links-system'
+  | 'localization-dropdown'
+  | 'localization-dropdown-links'
+  | 'localization-dropdown-en'
+  | 'localization-dropdown-ru'
   | 'nav-background';
 
 export const giql = (name: GIQLElements) => {
@@ -55,7 +63,7 @@ export const login = (props?: {
     password = Cypress.env('TEST_USER_PASSWORD'),
     expectFailure = false,
   } = props ?? {};
-  cy.giql('nav-signin-btn').click();
+  cy.visit('/signin');
 
   cy.giql('login-signin-form').should('be.visible');
 
@@ -69,9 +77,18 @@ export const login = (props?: {
   }
 };
 
+export const assertMissingHorizontalScroll = () => {
+  cy.window().then((win) => {
+    const htmlWidth = Cypress.$('html')[0].scrollWidth;
+    const scrollBarWidth = win.innerWidth - htmlWidth;
+    // scrollbar is absent
+    expect(scrollBarWidth).to.be.eq(0);
+  });
+};
 const commands = {
   giql,
   login,
+  assertMissingHorizontalScroll,
 };
 
 Cypress.Commands.addAll(commands);

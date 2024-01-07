@@ -1,9 +1,16 @@
 import { EditorComponent } from '@/components/Editor';
 import { useGQLContext } from '../../context';
+import { useLocale } from '@/context/Locale';
 
 export const QueryEditor = () => {
   const { query, setQuery, queryError, validateQuery, prettifyQuery } =
     useGQLContext();
+
+  const {
+    state: {
+      strings: { main },
+    },
+  } = useLocale();
 
   return (
     <EditorComponent
@@ -15,7 +22,7 @@ export const QueryEditor = () => {
       onBlur={validateQuery!}
       contextMenuItems={[
         {
-          text: 'Prettify',
+          text: main.format,
           action: prettifyQuery!,
         },
       ]}
