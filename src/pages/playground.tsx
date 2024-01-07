@@ -2,10 +2,16 @@ import { NextPageContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { Editor } from '@/features/playground/editor';
 import { QueryViewer } from '@/features/playground/queryViewer';
+import { useRouter } from 'next/navigation';
 
 const Main = () => {
+  const router = useRouter();
+
   useSession({
     required: true,
+    onUnauthenticated: () => {
+      router.push('/');
+    },
   });
 
   return (
