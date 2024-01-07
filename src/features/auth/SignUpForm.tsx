@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { InputField } from '@/components/ui/InputField';
 import { DangerAlert } from '@/components/ui/alert';
+import { useLocale } from '@/context/Locale';
 
 import { PasswordStrengthIndicator } from './components/PasswordStrength';
 
 import {
   SignUpDataType,
-  signUpDataSchema,
+  useSignUpValidation,
   useYupValidationResolver,
 } from './Schema';
 import { GoogleAuthButton } from './components';
@@ -17,6 +18,7 @@ export const SignUpForm = (props: {
   onSubmit: (data: SignUpDataType) => void;
   error?: string;
 }) => {
+  const signUpDataSchema = useSignUpValidation();
   const resolver = useYupValidationResolver(signUpDataSchema);
   const {
     handleSubmit,
@@ -27,6 +29,11 @@ export const SignUpForm = (props: {
     resolver,
     mode: 'onBlur',
   });
+  const {
+    state: {
+      strings: { signupform: text },
+    },
+  } = useLocale();
 
   return (
     <div className="text-left w-full flex flex-col p-1">
@@ -36,10 +43,10 @@ export const SignUpForm = (props: {
         className="flex flex-col gap-4 w-full"
       >
         <h2 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">
-          Sign Up
+          {text.sign_up}
         </h2>
         <InputField
-          label="Your Firstname"
+          label={text.your_firstname}
           id="firstname"
           data-testid="login-firstname"
           type="text"
@@ -48,7 +55,7 @@ export const SignUpForm = (props: {
           error={errors.firstname?.message}
         />
         <InputField
-          label="Your lastname"
+          label={text.your_lastname}
           id="lastname"
           data-testid="login-lastname"
           type="text"
@@ -58,7 +65,7 @@ export const SignUpForm = (props: {
         />
 
         <InputField
-          label="Your e-mail"
+          label={text.your_email}
           id="email"
           data-testid="login-email"
           type="email"
@@ -69,7 +76,7 @@ export const SignUpForm = (props: {
 
         <>
           <InputField
-            label="Your password"
+            label={text.your_password}
             data-testid="login-password"
             id="password1"
             type="password"
@@ -82,7 +89,7 @@ export const SignUpForm = (props: {
         </>
 
         <InputField
-          label="Confirm password"
+          label={text.conf_password}
           id="password2"
           data-testid="login-confirm-pswd"
           type="password"
@@ -95,19 +102,19 @@ export const SignUpForm = (props: {
           data-testid="login-submit-btn"
           type="submit"
         >
-          Submit
+          {text.submit}
         </Button>
       </form>
       {props.error && (
         <DangerAlert className="mt-3" data-testid="login-error">
-          <span className="font-medium">Auth Error!</span> {props.error}
+          <span className="font-medium">{text.auth_error}</span> {props.error}
         </DangerAlert>
       )}
       <GoogleAuthButton className="mt-4" />
       <p className="mt-4 dark:text-white">
-        Already have an account?{' '}
+        {text.already_have}{' '}
         <Link href="/signin">
-          <span className="text-blue-600 hover:underline">Sign in</span>
+          <span className="text-blue-600 hover:underline">{text.sign_in}</span>
         </Link>
       </p>
     </div>

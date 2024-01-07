@@ -1,13 +1,17 @@
 import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { Editor } from '@/features/playground/editor';
 import { QueryViewer } from '@/features/playground/queryViewer';
 
 const Main = () => {
+  useSession({
+    required: true,
+  });
+
   return (
     <div
       data-testid="main-page"
-      className="text-center bg-gray-50 my-10 dark:bg-gray-900 w-full"
+      className="text-center bg-gray-50 my-10 dark:bg-gray-700 w-full"
     >
       <div className="grid">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-3">
@@ -29,7 +33,9 @@ export async function getServerSideProps(context: NextPageContext) {
     };
   }
   return {
-    props: {},
+    props: {
+      session,
+    },
   };
 }
 

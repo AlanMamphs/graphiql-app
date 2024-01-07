@@ -1,5 +1,6 @@
 import { EditorComponent, languages } from '@/components/Editor';
 import { useGQLContext } from '../../context';
+import { useLocale } from '@/context/Locale';
 
 export const VarsEditor = () => {
   const {
@@ -9,10 +10,17 @@ export const VarsEditor = () => {
     validateVariables,
     prettifyVariables,
   } = useGQLContext();
+
+  const {
+    state: {
+      strings: { main },
+    },
+  } = useLocale();
+
   return (
     <EditorComponent
       data-testid="playground-variables-editor"
-      className="h-[15vh] overflow-auto relative flex-grow"
+      className="h-[35vh] overflow-auto relative flex-grow"
       syntaxError={variablesError}
       onBlur={validateVariables!}
       code={variables}
@@ -20,7 +28,7 @@ export const VarsEditor = () => {
       language={languages.JSON}
       contextMenuItems={[
         {
-          text: 'Prettify',
+          text: main.format,
           action: prettifyVariables!,
         },
       ]}

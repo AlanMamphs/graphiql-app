@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { m, useMotionValueEvent, useScroll } from 'framer-motion';
 import { Brand } from './ui/Brand';
 import { Links } from './ui/Links';
+import { Menu } from './ui/Menu';
 
 const HEADER_HEIGHT = 60;
 
@@ -26,11 +27,14 @@ export const NavbarComponent = () => {
             opacity: 0,
           },
           closed: {
-            opacity: 0.9,
+            opacity: 0.95,
           },
         }}
       />
-      <Links className="gap-3" />
+      <Menu />
+      <div className="hidden sm:block mr-2">
+        <Links />
+      </div>
     </m.header>
   );
 };

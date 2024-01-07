@@ -1,3 +1,5 @@
+import { useLocale } from '@/context/Locale';
+
 const calculatePasswordStrength = (password: string) => {
   // A simple password strength calculation
   const minLength = password.length >= 8;
@@ -22,6 +24,11 @@ const calculatePasswordStrength = (password: string) => {
 export const PasswordStrengthIndicator = (props: { password: string }) => {
   const { password } = props;
   const passwordStrength = calculatePasswordStrength(password);
+  const {
+    state: {
+      strings: { passwordstrength: text },
+    },
+  } = useLocale();
   if (passwordStrength < 3) {
     return (
       <>
@@ -29,7 +36,7 @@ export const PasswordStrengthIndicator = (props: { password: string }) => {
           data-testid="password-strength-text"
           className="mb-1 text-base font-medium text-red-700 dark:text-red-500"
         >
-          Weak
+          {text.weak}
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
           <div
@@ -44,7 +51,7 @@ export const PasswordStrengthIndicator = (props: { password: string }) => {
     return (
       <>
         <div className="mb-1 text-base font-medium text-yellow-700 dark:text-yellow-500">
-          Stronger
+          {text.stronger}
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
           <div
@@ -58,7 +65,7 @@ export const PasswordStrengthIndicator = (props: { password: string }) => {
   return (
     <>
       <div className="mb-1 text-base font-medium text-green-700 dark:text-green-500">
-        Strong
+        {text.strong}
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
         <div

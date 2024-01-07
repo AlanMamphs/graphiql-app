@@ -59,6 +59,7 @@ export default NextAuth({
   session: {
     // Set to jwt in order to CredentialsProvider works properly
     strategy: 'jwt',
+    maxAge: 10,
   },
   pages: {
     signIn: '/signin',

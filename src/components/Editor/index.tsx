@@ -1,11 +1,14 @@
 import React, { AllHTMLAttributes } from 'react';
-import Editor from 'react-simple-code-editor';
+import dynamic from 'next/dynamic';
 // @ts-expect-error type doesn't exist
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-graphql';
 import 'prismjs/themes/prism.css';
 import EditorContextMenu, { type EditorContextMenuItems } from './contextMenu';
 
+const Editor = dynamic(() => import('react-simple-code-editor'), {
+  ssr: false,
+});
 export { languages };
 
 const hightlightWithLineNumbers = (
@@ -56,6 +59,9 @@ export const EditorComponent = ({
           onBlur={onBlur}
           className="flex-1"
           textareaClassName=" p-l-16 dark:bg-blue-950 bg-slate-300 break-words break-all"
+          tabSize={1}
+          insertSpaces={false}
+          ignoreTabKey={false}
         />
       </div>
     </EditorContextMenu>

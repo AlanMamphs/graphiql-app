@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { NavButton } from './Button';
 import { NavLink } from './Link';
-import { ReactNode } from 'react';
 import { ModeToggle } from '@/components/ThemeToggle';
+import { LocaleToggle } from '@/components/LocaleToggle';
+import { useLocale } from '@/context/Locale';
 
 interface Props {
   direction?: 'row' | 'col';
@@ -12,6 +14,11 @@ interface Props {
 
 const Links = ({ direction = 'row', className }: Props) => {
   const { status } = useSession();
+  const {
+    state: {
+      strings: { sign, main },
+    },
+  } = useLocale();
   const dir = {
     row: 'flex-row items-center',
     col: 'flex-col justify-center',
@@ -21,18 +28,19 @@ const Links = ({ direction = 'row', className }: Props) => {
     return (
       <div className={cn('flex', dir[direction], className)}>
         <NavLink href="/playground">
-          <NavButton text="Main" dataTestId="nav-main-btn" />
+          <NavButton text={main.playground} dataTestId="nav-main-btn" />
         </NavLink>
 
         <NavLink href="/">
           <NavButton
-            text="Sign out"
+            text={sign.sign_out}
             dataTestId="nav-signout-btn"
             onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
           />
         </NavLink>
 
         <ModeToggle />
+        <LocaleToggle />
       </div>
     );
   }
@@ -40,14 +48,15 @@ const Links = ({ direction = 'row', className }: Props) => {
   return (
     <div className={cn('flex', dir[direction], className)}>
       <NavLink href="/signin">
-        <NavButton text="Sign In" dataTestId="nav-signin-btn" />
+        <NavButton text={sign.sign_in} dataTestId="nav-signin-btn" />
       </NavLink>
 
       <NavLink href="/signup">
-        <NavButton text="Sign Up" dataTestId="nav-signup-btn" />
+        <NavButton text={sign.sign_up} dataTestId="nav-signup-btn" />
       </NavLink>
 
       <ModeToggle />
+      <LocaleToggle />
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useGQLContext } from '../../context';
-
-export const QueryEndpoint = () => {
+import { useGQLContext } from '../context';
+import { PropsWithChildren } from 'react';
+import { Play } from 'lucide-react';
+export const ActionsBar = (props: PropsWithChildren) => {
   const {
     query,
     endpoint,
@@ -12,6 +13,7 @@ export const QueryEndpoint = () => {
     headersError,
     variablesError,
   } = useGQLContext();
+
   return (
     <div data-testid="playground-query-endpoint">
       <fieldset className="flex">
@@ -20,16 +22,18 @@ export const QueryEndpoint = () => {
           onBlur={(e) => setEndpoint?.(e.target?.value as string)}
           defaultValue={endpoint}
         />
+        {props.children}
         <Button
           data-testid="playground-run-query"
           className="mx-3"
+          variant="outline"
           disabled={Boolean(
             !query || queryError || headersError || variablesError
           )}
           onClick={runQuery}
           title={queryError || headersError || variablesError}
         >
-          Query
+          <Play />
         </Button>
       </fieldset>
     </div>

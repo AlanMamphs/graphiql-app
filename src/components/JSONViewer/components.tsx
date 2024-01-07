@@ -25,7 +25,7 @@ const getClassNameByValueType = (value: unknown) => {
 };
 
 const Key = ({ text }: { text: string }) => (
-  <div className="text-key">&quot;{text}&quot;:</div>
+  <div className="text-key break-normal sticky">&quot;{text}&quot;:</div>
 );
 
 interface BlockProps {
@@ -57,7 +57,7 @@ export const BlockView = ({ keyString, value }: BlockProps) => {
     'flex items-start'
   );
 
-  const nestedClassName = cn(isExpanded ? 'block' : 'hidden', 'pl-5');
+  const nestedClassName = cn(isExpanded ? 'block' : 'hidden', 'pl-2');
 
   return (
     <div className={rootClassName}>

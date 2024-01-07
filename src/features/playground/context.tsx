@@ -23,6 +23,10 @@ type GraphQLContext = {
   validateQuery?: () => void;
   prettifyQuery?: () => void;
   results?: Record<string, unknown>;
+  resultsError?: string;
+  resultsLoading?: boolean;
+  errorToastOpen?: boolean;
+  setErrorToastOpen?: (a: boolean) => void;
   endpoint: string;
   setEndpoint?: (e: string) => void;
 };
@@ -48,11 +52,47 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     'https://rickandmortyapi.com/graphql'
   );
   const [docs, setDocs] = useState({});
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState<Record<string, unknown>>();
+  const [resultsLoading, setResultsLoading] = useState<boolean>(false);
+  const [resultsError, setResultsError] = useState<string>();
+  const [errorToastOpen, setErrorToastOpen] = useState<boolean>(false);
 
+  const toastifyResponse = (status: number) => {
+    if (status >= 400) {
+      if (status === 401) {
+        setResultsError(
+          'Unauthenticated request. You need to provide Authorization headers.'
+        );
+      }
+      if (status === 403) {
+        setResultsError(
+          'Forbidden request. You are not authorized to perform this action.'
+        );
+      }
+      if (status === 404) {
+        setResultsError('Resource not found.');
+      }
+      if (status === 500) {
+        setResultsError('Internal server error.');
+      }
+      setErrorToastOpen(true);
+    }
+  };
   const fetchDocs = async () => {
-    setDocs(await apiClient.fetchDocs(endpoint));
-    await new Promise<string>((r) => setTimeout(r, 10000));
+    try {
+      const response = await apiClient.fetchDocs(endpoint);
+      toastifyResponse(response.status);
+      debugger;
+      setDocs(await response.json());
+    } catch (e) {
+      setResults({
+        message: (e as Error).message,
+      });
+      setResultsError((e as Error).message);
+      setErrorToastOpen(true);
+    } finally {
+      setResultsLoading(false);
+    }
   };
 
   const runQuery = async () => {
@@ -65,17 +105,25 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
     }
 
     try {
-      const results = await apiClient.runQuery({
+      setResultsLoading(true);
+      const response = await apiClient.runQuery({
         query,
         endpoint,
         headers: JSON.parse(headers.trim() || '{}'),
         variables: JSON.parse(variables.trim() || '{}'),
       });
-      setResults(results);
+
+      toastifyResponse(response.status);
+
+      setResults(await response.json());
     } catch (e) {
       setResults({
         message: (e as Error).message,
       });
+      setResultsError((e as Error).message);
+      setErrorToastOpen(true);
+    } finally {
+      setResultsLoading(false);
     }
   };
 
@@ -203,6 +251,10 @@ export const GraphQLProvider = (props: PropsWithChildren) => {
         validateVariables,
         prettifyVariables,
         results,
+        resultsError,
+        resultsLoading,
+        errorToastOpen,
+        setErrorToastOpen,
         endpoint,
         setEndpoint,
       }}

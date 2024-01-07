@@ -15,10 +15,7 @@ it('Expect Sign Up Form to fail with human readable error', () => {
   cy.giql('login-submit-btn').click();
 
   cy.giql('login-error').should('be.visible');
-  cy.giql('login-error').should(
-    'contain.text',
-    'Auth Error! Email already in use'
-  );
+  cy.giql('login-error').should('contain.text', 'Email is already in use');
 });
 
 it('Expect to show field error', () => {

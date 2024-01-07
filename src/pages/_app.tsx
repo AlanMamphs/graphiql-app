@@ -5,6 +5,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from '@/providers/theme';
 import { LazyMotion, domAnimation } from 'framer-motion';
+import { LocaleProvider } from '@/context/Locale';
 import { GraphQLProvider } from '@/features/playground/context';
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -17,13 +18,15 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <GraphQLProvider>
-            <RootLayout>
-              <ErrorBoundary>
-                <Component {...pageProps} />
-              </ErrorBoundary>
-            </RootLayout>
-          </GraphQLProvider>
+          <LocaleProvider>
+            <GraphQLProvider>
+              <RootLayout>
+                <ErrorBoundary>
+                  <Component {...pageProps} />
+                </ErrorBoundary>
+              </RootLayout>
+            </GraphQLProvider>
+          </LocaleProvider>
         </ThemeProvider>
       </SessionProvider>
     </LazyMotion>

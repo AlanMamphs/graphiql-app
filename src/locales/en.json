@@ -1,0 +1,84 @@
+{
+  "main": {
+    "go_home": "Go home",
+    "welcome_to": "Welcome to the GraphiQL",
+    "description_header": " GraphiQL is a playground/IDE for graphQL requests. This project is part of Rolling Scopes School React Course. The Rolling Scopes is an independent international community of developers (mainly JavaScript / Front-end / iOS / Android), organized in 2013. Currently, many developers around the world know that we participate in our events and activities. You can find task description and requirements",
+    "here_link": "here",
+    "playground": "Playground",
+    "schema": "Schema",
+    "query_editor": "Query Editor",
+    "headers": "Headers",
+    "variables": "Variables",
+    "query": "Query",
+    "format": "Prettify",
+    "start_querying": "Hurry up! Add query to editor and hit Query",
+    "loading": "Loading..."
+  },
+  "sign": {
+    "sign_in": "Login",
+    "sign_up": "Sign Up",
+    "sign_out": "Sign out"
+  },
+  "error": {
+    "message404": "The page you are looking for might be in another universe.",
+    "page_not": "Page Not Found",
+    "message500": "Our team of highly trained monkeys has been dispatched to deal with this situation.",
+    "went_wrong": "Oops! Something went wrong."
+  },
+  "themetoggle": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "signinform": {
+    "sign_in": "Sign In",
+    "your_email": "Your e-mail",
+    "your_password": "Your password",
+    "submit": "Sign In",
+    "auth_error": "Auth Error!",
+    "dont_have": "Don't have an account?",
+    "sign_up": "Sign up",
+    "invalid_creds": "Invalid email or password",
+    "session_expired": "Session has expired. Relogin to continue"
+  },
+  "signupform": {
+    "sign_up": "Sign Up",
+    "your_firstname": "Your Firstname",
+    "your_lastname": "Your Lastname",
+    "your_email": "Your e-mail",
+    "your_password": "Your Password",
+    "conf_password": "Confirm Password",
+    "submit": "Create account",
+    "auth_error": "Auth Error!",
+    "already_have": "Already have an account?",
+    "sign_in": "Sign In",
+    "email_error": "Email is already in use"
+  },
+  "googleauthbutton": {
+    "sign": "Sign in with Google"
+  },
+  "passwordstrength": {
+    "weak": "Weak",
+    "stronger": "Stronger",
+    "strong": "Strong"
+  },
+  "schema": {
+    "firstname": {
+      "matches": "Firstname should start with an uppercase letter and should be valid",
+      "required": "Firstname is required"
+    },
+    "lastname": {
+      "matches": "Lastname should start with an uppercase letter and should be valid",
+      "required": "Lastname is required"
+    },
+    "email": {
+      "email": "Invalid email address",
+      "required": "Email is required"
+    },
+    "password": {
+      "required": "Password is required",
+      "match": "Passwords must match",
+      "confirm": "Confirm password"
+    }
+  }
+}

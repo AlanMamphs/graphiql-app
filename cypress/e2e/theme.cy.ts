@@ -1,6 +1,6 @@
 describe('Theme toggler should work for each select', () => {
   it('Light theme toggler shoud work', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
     cy.giql('theme-dropdown').should('be.visible');
     cy.giql('theme-dropdown').click();
@@ -12,7 +12,7 @@ describe('Theme toggler should work for each select', () => {
   });
 
   it('Dark theme toggler shoud work', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
     cy.giql('theme-dropdown').should('be.visible');
     cy.giql('theme-dropdown').click();
@@ -24,7 +24,7 @@ describe('Theme toggler should work for each select', () => {
   });
 
   it('System theme toggler shoud work', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
     cy.giql('theme-dropdown').should('be.visible');
     cy.giql('theme-dropdown').click();

@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { getSession, signIn } from 'next-auth/react';
 import { SignUpForm, SignUpDataType } from '@/features/auth';
 import { NextPageContext } from 'next';
+import { useLocale } from '@/context/Locale';
 
 const Signup = () => {
   const [error, setError] = useState<string>();
+  const {
+    state: {
+      strings: { signupform },
+    },
+  } = useLocale();
 
   const parsedError = () => {
-    if (error === 'auth/email-already-in-use') return 'Email already in use';
+    if (error === 'auth/email-already-in-use') return signupform.email_error;
 
     return error;
   };
@@ -32,7 +38,7 @@ const Signup = () => {
     }
   };
   return (
-    <div className="flex flex-col justify-center relative h-full min-h-full-main w-1/4 overflow-y-auto m-10 pb:12 mx-auto">
+    <div className="flex flex-col justify-center relative h-full min-h-full-main md:w-1/2 lg:w-1/3 overflow-y-auto m-10 pb:12 mx-auto">
       <SignUpForm onSubmit={handleSignUp} error={parsedError()} />
     </div>
   );

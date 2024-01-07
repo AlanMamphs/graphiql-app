@@ -7,6 +7,9 @@ type GIQLElements =
   | 'nav-signout-btn'
   | 'nav-main-btn'
   | 'nav-light-dark-theme'
+  | 'nav-menu-hamburger'
+  | 'nav-menu-close'
+  | 'nav-secondary-menu-links'
   | 'welcome-banner'
   | 'welcome-signin-btn'
   | 'welcome-signup-btn'
@@ -32,6 +35,9 @@ type GIQLElements =
   | 'playground-query-results'
   | 'playground-run-query'
   | 'playground-context-menu'
+  | 'playground-error-toast'
+  | 'playground-hide-h-and-v'
+  | 'playground-show-h-and-v'
   | 'not-found-page'
   | 'server-error-page'
   | 'theme-dropdown'
@@ -39,6 +45,10 @@ type GIQLElements =
   | 'theme-dropdown-links-light'
   | 'theme-dropdown-links-dark'
   | 'theme-dropdown-links-system'
+  | 'localization-dropdown'
+  | 'localization-dropdown-links'
+  | 'localization-dropdown-en'
+  | 'localization-dropdown-ru'
   | 'nav-background';
 
 export const giql = (name: GIQLElements) => {
@@ -55,7 +65,7 @@ export const login = (props?: {
     password = Cypress.env('TEST_USER_PASSWORD'),
     expectFailure = false,
   } = props ?? {};
-  cy.giql('nav-signin-btn').click();
+  cy.visit('/signin');
 
   cy.giql('login-signin-form').should('be.visible');
 

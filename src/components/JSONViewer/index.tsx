@@ -23,5 +23,7 @@ export const JsonViewer = ({ obj }: { obj: Record<string, unknown> }) => {
       })
     : [];
 
-  return <div className="root">{jsx}</div>;
+  return (
+    <div className="root break-words overflow-x-hidden break-all">{jsx}</div>
+  );
 };

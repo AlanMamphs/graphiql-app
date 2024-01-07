@@ -1,5 +1,6 @@
 import { EditorComponent, languages } from '@/components/Editor';
 import { useGQLContext } from '../../context';
+import { useLocale } from '@/context/Locale';
 
 export const HeaderEditor = () => {
   const {
@@ -9,10 +10,17 @@ export const HeaderEditor = () => {
     validateHeaders,
     prettifyHeaders,
   } = useGQLContext();
+
+  const {
+    state: {
+      strings: { main },
+    },
+  } = useLocale();
+
   return (
     <EditorComponent
       data-testid="playground-headers-editor"
-      className="h-[15vh] overflow-auto relative flex-grow"
+      className="h-[35vh] overflow-auto transition-all relative flex-grow"
       syntaxError={headersError}
       onBlur={validateHeaders!}
       code={headers}
@@ -20,7 +28,7 @@ export const HeaderEditor = () => {
       language={languages.JSON}
       contextMenuItems={[
         {
-          text: 'Prettify',
+          text: main.format,
           action: prettifyHeaders!,
         },
       ]}
