@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { useLocale } from '@/context/Locale';
 
 import { Button } from '@/components/ui/button';
@@ -12,13 +11,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function LocaleToggle() {
-  const { state, handleRegionChange } = useLocale();
+  const {
+    state: { region },
+    handleRegionChange,
+  } = useLocale();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild data-testid="localization-dropdown">
         <Button variant="outline" size="icon" className="mx-1">
-          {state.region}
+          {region}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
