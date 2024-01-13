@@ -1,8 +1,9 @@
 import enStrings from '../../locales/en.json';
 import ruStrings from '../../locales/ru.json';
 
+export type RegionKey = keyof typeof REGIONS;
+
 export const REGIONS = {
-  UNSET: 'UNSET',
   EN: 'EN',
   RU: 'RU',
 };
